@@ -1,0 +1,7 @@
+fastapi==0.103.2
+httptools==0.6.0
+uvloop==0.17.0
+watchfiles==0.20.0
+websockets==11.0.3
+h11==0.14.0
+uvicorn==0.23.2
