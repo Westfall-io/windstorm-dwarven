@@ -4,6 +4,8 @@ SQLDEF = "localhost:5432"
 SQLHOST = os.environ.get("SQLHOST",SQLDEF)
 
 import json
+import math
+
 from typing import Union
 
 import sqlalchemy as db
@@ -12,7 +14,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from .models import Commits, Models, Elements, Models_Elements, \
-    Reqts, Verifications, Actions, Artifacts
+    Reqts, Verifications, Actions, Artifacts, Artifacts_Commits
 
 tags_metadata = [
     {
@@ -67,6 +69,8 @@ with Session(engine) as session:
     # /models/threads/main - Get all threads on main
     # /models/threads/thread/{thread_id} - Get specific thread
     ## Artifacts Table
+    # /artifacts - Get list of all artifacts
+
 
 
 
@@ -345,56 +349,123 @@ with Session(engine) as session:
     def read_artifacts(size: Union[int, None] = 10):
         output = []
         results = session \
-            .query(Artifacts) \
-            .distinct(Artifacts.commit_url, Artifacts.ref) \
-            .order_by(Artifacts.commit_url, Artifacts.ref, db.desc(Artifacts.date)) \
+            .query(Artifacts, Artifacts_Commits) \
+            .join(Artifacts_Commits) \
+            .filter(Artifacts.id == Artifacts_Commits.artifacts_id and
+                (
+                    Artifacts_Commits.ref == 'main' or
+                    Artifacts_Commits.ref == 'master'
+                )
+            ) \
+            .order_by(db.desc(Artifacts_Commits.date)) \
             .limit(size)
-        #if len(results) == 0:
-        #    return JSONResponse(status_code=404, content={"message": "Item not found"})
-        for commit in results:
+
+        for result in results:
+            artifact = result[0]
+            commit = result[1]
             output.append({
-                'id': commit.id,
-                'full_name': commit.full_name,
-                'commit_url': commit.commit_url,
+                'id': artifact.id,
+                'full_name': artifact.full_name,
+                'commit_url': artifact.commit_url,
                 'ref': commit.ref,
                 'commit': commit.commit,
-                'date': (commit.date).isoformat()
+                'date_updated': commit.date
             })
         return output
 
-    # Get the commits associated with the main
-    @app.get("/artifacts/main/commits", tags=["artifacts"])
-    def read_commits(size: Union[int, None] = 10):
+    @app.get("/artifacts/count", tags=["artifacts"])
+    def count_artifacts(size: Union[int, None] = 10):
         output = []
         results = session \
-            .query(Artifacts) \
-            .order_by(db.desc(Artifacts.date)) \
+            .query(Artifacts, Artifacts_Commits) \
+            .join(Artifacts_Commits) \
+            .filter(Artifacts.id == Artifacts_Commits.artifacts_id and
+                (
+                    Artifacts_Commits.ref == 'main' or
+                    Artifacts_Commits.ref == 'master'
+                )
+            ) \
+            .order_by(db.desc(Artifacts_Commits.date)) \
+            .all()
+
+        output = {
+            'size': len(results),
+            'pages': math.ceil(len(results)/size)
+        }
+        return output
+
+    # Get all refs for this artifact.
+    @app.get("/artifacts/{artifact_id}/refs", tags=["artifacts"])
+    def read_artifact_refs(artifact_id: int, size: Union[int, None] = 10):
+        output = []
+        results = session \
+            .query(Artifacts, Artifacts_Commits) \
+            .join(Artifacts_Commits) \
+            .filter(Artifacts.id == Artifacts_Commits.artifacts_id and
+                (
+                    Artifacts.id == artifact_id
+                )
+            ) \
+            .order_by(db.desc(Artifacts_Commits.date)) \
             .limit(size)
-        for commit in results:
+
+        for result in results:
+            artifact = result[0]
+            commit = result[1]
             output.append({
-                'id': commit.id,
-                'full_name': commit.full_name,
-                'commit_url': commit.commit_url,
+                'id': artifact.id,
+                'full_name': artifact.full_name,
+                'commit_url': artifact.commit_url,
                 'ref': commit.ref,
                 'commit': commit.commit,
-                'date': (commit.date).isoformat()
+                'date_updated': commit.date
             })
+        return output
+
+    # Get all refs for this artifact.
+    @app.get("/artifacts/{artifact_id}/main", tags=["artifacts"])
+    def read_artifact_refs(artifact_id: int, size: Union[int, None] = 10):
+        output = []
+        result = session \
+            .query(Artifacts, Artifacts_Commits) \
+            .join(Artifacts_Commits) \
+            .filter(Artifacts.id == Artifacts_Commits.artifacts_id and
+                Artifacts.id == artifact_id and
+                (
+                    Artifacts_Commits.ref == 'main' or
+                    Artifacts_Commits.ref == 'master'
+                )
+            ) \
+            .order_by(db.desc(Artifacts_Commits.date)) \
+            .first()
+
+        if result is not None:
+            artifact = result[0]
+            commit = result[1]
+            output = {
+                'id': artifact.id,
+                'full_name': artifact.full_name,
+                'commit_url': artifact.commit_url,
+                'ref': commit.ref,
+                'commit': commit.commit,
+                'date_updated': commit.date
+            }
         return output
 
     # Get the artifact associated
-    @app.get("/artifacts/ref/{ref_id}/commits", tags=["artifacts"])
-    def read_commits(size: Union[int, None] = 10):
+    @app.get("/artifacts/{artifact_id}/refs/{ref_name}/commits", tags=["artifacts"])
+    def read_commits(artifact_id: int, ref_name: str, size: Union[int, None] = 10):
         output = []
         results = session \
-            .query(Artifacts) \
-            .order_by(db.desc(Artifacts.date)) \
+            .query(Artifacts_Commits) \
+            .filter(Artifacts_Commits.artifacts_id == artifact_id and
+                Artifacts_Commits.ref == ref_name
+            ) \
+            .order_by(db.desc(Artifacts_Commits.date)) \
             .limit(size)
         for commit in results:
             output.append({
                 'id': commit.id,
-                'full_name': commit.full_name,
-                'commit_url': commit.commit_url,
-                'ref': commit.ref,
                 'commit': commit.commit,
                 'date': (commit.date).isoformat()
             })

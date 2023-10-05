@@ -86,6 +86,11 @@ class Artifacts(Base):
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
     full_name: Mapped[str] = mapped_column(db.String(255), nullable=False)
     commit_url: Mapped[str] = mapped_column(db.String(), nullable=False)
+
+class Artifacts_Commits(Base):
+    __tablename__ = "artifact_commits"
+    id: Mapped[int] = mapped_column(init=False, primary_key=True)
+    artifacts_id: Mapped[int] = mapped_column(db.ForeignKey("artifacts.id"))
     ref: Mapped[str] = mapped_column(db.String(255))
     commit: Mapped[str] = mapped_column(db.String(255))
     date: Mapped[datetime] = mapped_column(default=None)
