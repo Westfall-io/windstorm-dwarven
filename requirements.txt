@@ -5,3 +5,8 @@ watchfiles==0.20.0
 websockets==11.0.3
 h11==0.14.0
 uvicorn==0.23.2
+sqlalchemy==2.0.21
+psycopg2==2.9.9
+gunicorn==21.2.0
+pydantic==2.4.1
+minio==7.1.17
