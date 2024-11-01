@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.7 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding log level debug ([`bf6eb72`](https://github.com/Westfall-io/windstorm-dwarven/commit/bf6eb724639f15260290d2967cdf15ca04aa488f))
+
 ## v0.0.6 (2024-11-01)
 
 ### :zap:
