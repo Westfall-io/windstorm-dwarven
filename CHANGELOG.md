@@ -1,10 +1,18 @@
 # CHANGELOG
 
+## v0.0.28 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding password debug without raising an error? ([`b76092c`](https://github.com/Westfall-io/windstorm-dwarven/commit/b76092c73b854576661eba42aaab7c96d2a9a8e0))
+
 ## v0.0.27 (2024-11-01)
 
 ### :zap:
 
 * :zap: Reverting changes to database connection ([`7423dfd`](https://github.com/Westfall-io/windstorm-dwarven/commit/7423dfdbe9420d5a32ad45a5c6993e741cdc7ff4))
+
+* :zap: Reverting changes to database connection ([`d3748af`](https://github.com/Westfall-io/windstorm-dwarven/commit/d3748afe984e528ccc119f7d06cc4255e28626f0))
 
 ## v0.0.26 (2024-11-01)
 
