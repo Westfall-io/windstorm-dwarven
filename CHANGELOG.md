@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.14 (2024-11-01)
+
+### :zap:
+
+* :zap: Using sample template ([`194ba86`](https://github.com/Westfall-io/windstorm-dwarven/commit/194ba86d127ad234fa94efee6f6c9e1018ab90a8))
+
 ## v0.0.13 (2024-11-01)
 
 ### :zap:
