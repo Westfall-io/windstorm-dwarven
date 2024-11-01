@@ -67,13 +67,7 @@ def connect():
 
     address = db_type+"://"+user+":"+passwd+"@"+address+"/"+db_name
     engine = db.create_engine(address)
-    try:
-        print(passwd)
-        conn = engine.connect()
-    except OperationalError as exception:
-        print(exception)
-        print(passwd)
-        raise OperationalError(exception)
+    conn = engine.connect()
 
     return conn, engine
 
