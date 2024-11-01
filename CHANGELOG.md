@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## v0.0.21 (2024-11-01)
+
 ## v0.0.20 (2024-11-01)
 
 ### :zap:
+
+* :zap: Adding oauth ([`f4b8a9f`](https://github.com/Westfall-io/windstorm-dwarven/commit/f4b8a9fef4f8ba4eb61fe4339af52138884fe463))
 
 * :zap: Adding tags ([`28de7d9`](https://github.com/Westfall-io/windstorm-dwarven/commit/28de7d9d9ba66fb937936a1f2722fab8fe060122))
 
