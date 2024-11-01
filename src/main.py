@@ -267,6 +267,10 @@ def main(given):
 
     app = FastAPI(openapi_tags=tags_metadata)
 
+    @app.get("/", tags=["models"])
+    def public():
+        return 'Hello World'
+    
     return app
     app.add_middleware(
         CORSMiddleware,
