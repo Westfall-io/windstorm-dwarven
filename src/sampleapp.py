@@ -1,3 +1,20 @@
+# Copyright (c) 2023-2024 Westfall Inc.
+#
+# This file is part of Windstorm-Dwarven.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation, and can be found in the file NOTICE inside this
+# git repository.
+#
+# This program is distributed in the hope that it will be useful
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 from env import *
 
 from typing import Union, Annotated
@@ -35,6 +52,29 @@ async def valid_access_token(
         return data
     except jwt.exceptions.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Not authenticated")
+
+from sqlalchemy.orm import Session
+from sqlalchemy.sql.expression import true
+from sqlalchemy.exc import OperationalError
+
+def connect():
+    db_type = "postgresql"
+    user = PGUSER
+    passwd = PGPASSWD
+    address = SQLHOST
+    db_name = PGDBNAME
+
+    address = db_type+"://"+user+":"+passwd+"@"+address+"/"+db_name
+    engine = db.create_engine(address)
+    try:
+        print(passwd)
+        conn = engine.connect()
+    except OperationalError as exception:
+        print(exception)
+        print(passwd)
+        raise OperationalError(exception)
+
+    return conn, engine
 
 def main():
     tags_metadata = [
@@ -77,6 +117,9 @@ def main():
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    _, engine = connect()
+    session = Session(engine)
 
     @app.get("/")
     def read_root():
