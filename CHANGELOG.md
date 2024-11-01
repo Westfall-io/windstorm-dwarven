@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## v0.0.8 (2024-11-01)
+
 ## v0.0.7 (2024-11-01)
 
 ### :zap:
+
+* :zap: Adding async ([`0fe0e43`](https://github.com/Westfall-io/windstorm-dwarven/commit/0fe0e43c6ce59d111cc4c1a1e309561fa3a47df8))
 
 * :zap: Adding log level debug ([`bf6eb72`](https://github.com/Westfall-io/windstorm-dwarven/commit/bf6eb724639f15260290d2967cdf15ca04aa488f))
 
