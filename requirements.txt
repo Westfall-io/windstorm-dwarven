@@ -1,4 +1,4 @@
-fastapi==0.103.2
+fastapi==0.115.4
 httptools==0.6.0
 uvloop==0.17.0
 watchfiles==0.20.0
