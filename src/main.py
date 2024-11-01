@@ -240,8 +240,8 @@ def get_artifact_from_uri(uri, session):
 
     return artifact_result, None
 
-def main():
-
+def main(given):
+    print(given)
     tags_metadata = [
         {
             "name": "artifacts",
