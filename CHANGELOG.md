@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.23 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding more imports from fastapi and typings ([`fa43321`](https://github.com/Westfall-io/windstorm-dwarven/commit/fa43321550ef6af0c936e2571e3983697deedc71))
+
 ## v0.0.22 (2024-11-01)
 
 ### :zap:
