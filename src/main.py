@@ -15,18 +15,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-
-# Get environment variables
-SQLHOST = os.environ.get("SQLHOST","localhost:5432")
-HARBORPATH = os.environ.get("HARBORPATH","core.harbor.domain/")
-
-PGUSER = os.environ.get("PGUSER","postgres")
-PGPASSWD = os.environ.get("PGPASSWD","mysecretpassword")
-PGDBNAME = os.environ.get("PGDBNAME","pgdb")
-
-KCREALM = os.environ.get("KCREALM","test")
-KCADDR = os.environ.get("KCADDR","https://keycloak.digitalforge.app")
+from env import *
 
 import json
 import math
@@ -100,13 +89,7 @@ def connect():
 
     address = db_type+"://"+user+":"+passwd+"@"+address+"/"+db_name
     engine = db.create_engine(address)
-    try:
-        print(passwd)
-        conn = engine.connect()
-    except OperationalError as exception:
-        print(exception)
-        print(passwd)
-        raise OperationalError(exception)
+    conn = engine.connect()
 
     return conn, engine
 
@@ -264,12 +247,7 @@ def main():
         }
     ]
 
-    #app = FastAPI(openapi_tags=tags_metadata)
-
-    app = FastAPI()
-    @app.get("/", tags=["models"])
-    async def public():
-        return 'Hello World'
+    app = FastAPI(openapi_tags=tags_metadata)
 
     app.add_middleware(
         CORSMiddleware,
@@ -278,8 +256,6 @@ def main():
         allow_methods=["*"],
         allow_headers=["*"],
     )
-
-    return app
 
     _, engine = connect()
     session = Session(engine)

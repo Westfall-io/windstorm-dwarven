@@ -67,7 +67,6 @@ def connect():
 
     address = db_type+"://"+user+":"+passwd+"@"+address+"/"+db_name
     engine = db.create_engine(address)
-    print(passwd)
     conn = engine.connect()
 
     return conn, engine
