@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.27 (2024-11-01)
+
+### :zap:
+
+* :zap: Reverting changes to database connection ([`7423dfd`](https://github.com/Westfall-io/windstorm-dwarven/commit/7423dfdbe9420d5a32ad45a5c6993e741cdc7ff4))
+
 ## v0.0.26 (2024-11-01)
 
 ### :zap:
