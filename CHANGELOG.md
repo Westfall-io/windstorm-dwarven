@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## v0.0.25 (2024-11-01)
+
 ## v0.0.24 (2024-11-01)
 
 ### :zap:
+
+* :zap: Adding postgres connection ([`10106c4`](https://github.com/Westfall-io/windstorm-dwarven/commit/10106c49a243bb3310cdd978025d59fd010c31ef))
 
 * :zap: Adding keycloak endpoint ([`03942ff`](https://github.com/Westfall-io/windstorm-dwarven/commit/03942ff6a763419a608eb55ffee1c52e8c72ddd6))
 
