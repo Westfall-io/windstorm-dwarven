@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "windstorm-dwarven"
-version = "0.0.2"
+version = "0.0.3"
 description = "Backend API for Windstorm"
 authors = ["Christopher Cox"]
 readme = "README.md"
@@ -60,7 +60,7 @@ patch_tags = [
 
 [project]
 name = "windstorm-dwarven"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Christopher Cox", email="chris.cox@westfall.io" },
 ]

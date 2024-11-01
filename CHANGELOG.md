@@ -1,6 +1,16 @@
 # CHANGELOG
 
+## v0.0.3 (2024-11-01)
+
+### :bug:
+
+* :bug: Adding debug for password errors ([`f627ad1`](https://github.com/Westfall-io/windstorm-dwarven/commit/f627ad188296be97e1354dfed988fe66654ca595))
+
 ## v0.0.2 (2024-11-01)
+
+### Other
+
+* :arrow_up: Fixing dependencies ([`1010570`](https://github.com/Westfall-io/windstorm-dwarven/commit/1010570a705b466820883678c9f9cf01d719e409))
 
 ## v0.0.1 (2024-11-01)
 
