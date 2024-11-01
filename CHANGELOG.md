@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.17 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding sampleapp ([`a4ab72e`](https://github.com/Westfall-io/windstorm-dwarven/commit/a4ab72e8eccffd7e6d5b3b7ae4d5fd389ad9765c))
+
 ## v0.0.16 (2024-11-01)
 
 ### :zap:
