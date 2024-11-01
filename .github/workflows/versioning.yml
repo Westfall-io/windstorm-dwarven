@@ -1,0 +1,33 @@
+name: Semantic Versioning
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  push:
+    branches:
+      - dev
+
+permissions: write-all
+
+jobs:
+  versioning:
+    name: Semantic Versioning
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Python Semantic Release 📦 to PyPI
+      id: release
+      uses: python-semantic-release/python-semantic-release@v9.8.5
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Publish package to GitHub Release
+      uses: python-semantic-release/upload-to-gh-release@main
+      if: ${{ steps.release.outputs.released }} == 'true'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ steps.release.outputs.tag }}
