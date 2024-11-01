@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.13 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding binding ([`36a821f`](https://github.com/Westfall-io/windstorm-dwarven/commit/36a821fe20431cefbdf05a44370e6b9a6394538c))
+
 ## v0.0.12 (2024-11-01)
 
 ### :zap:
