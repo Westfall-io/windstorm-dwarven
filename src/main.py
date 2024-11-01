@@ -269,7 +269,7 @@ def main(given):
 
     app = FastAPI()
     @app.get("/", tags=["models"])
-    def public():
+    async def public():
         return 'Hello World'
 
     app.add_middleware(
