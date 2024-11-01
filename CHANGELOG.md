@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.0.4 (2024-11-01)
+
+### :bug:
+
+* :bug: Pushing version number to repull image ([`0319209`](https://github.com/Westfall-io/windstorm-dwarven/commit/0319209b3b8f01d51d0c232441df5c1ad1d6d3ff))
+
+### Other
+
+* :construction: Adding an argument ([`6e24d2f`](https://github.com/Westfall-io/windstorm-dwarven/commit/6e24d2feb09cba3cb3d9f07c34b05253add74b40))
+
+* :construction: Empty API ([`5e77362`](https://github.com/Westfall-io/windstorm-dwarven/commit/5e77362d1e49651d49c4c5c4327681c40656e82e))
+
+* :construction: Adding more debug ([`650ee65`](https://github.com/Westfall-io/windstorm-dwarven/commit/650ee654656c874a49ec6c53899be52335f608ab))
+
 ## v0.0.3 (2024-11-01)
 
 ### :bug:
