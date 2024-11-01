@@ -80,6 +80,7 @@ origins = [
 
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import true
+from sqlalchemy.exc import OperationalError
 
 from pydantic import BaseModel
 
@@ -99,7 +100,13 @@ def connect():
 
     address = db_type+"://"+user+":"+passwd+"@"+address+"/"+db_name
     engine = db.create_engine(address)
-    conn = engine.connect()
+    try:
+        conn = engine.connect()
+    except OperationalError as exception:
+        print(exception)
+        print(passwd)
+        raise OperationalError(exception)
+
 
     return conn, engine
 
