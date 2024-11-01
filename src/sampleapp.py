@@ -53,6 +53,7 @@ async def valid_access_token(
     except jwt.exceptions.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Not authenticated")
 
+import sqlalchemy as db
 from sqlalchemy.orm import Session
 from sqlalchemy.sql.expression import true
 from sqlalchemy.exc import OperationalError
