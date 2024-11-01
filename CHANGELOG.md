@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.26 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding required imports ([`4a75673`](https://github.com/Westfall-io/windstorm-dwarven/commit/4a756739196e5b572680f31bc6701598787d1b47))
+
 ## v0.0.25 (2024-11-01)
 
 ## v0.0.24 (2024-11-01)
