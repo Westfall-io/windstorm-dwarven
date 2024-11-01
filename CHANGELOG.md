@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.22 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding environment variables ([`70201f0`](https://github.com/Westfall-io/windstorm-dwarven/commit/70201f0f6758b802c7d0096badf5f3eec9e6c488))
+
 ## v0.0.21 (2024-11-01)
 
 ## v0.0.20 (2024-11-01)
