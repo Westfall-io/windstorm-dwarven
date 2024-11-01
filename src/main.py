@@ -267,6 +267,7 @@ def main():
 
     app = FastAPI(openapi_tags=tags_metadata)
 
+    return app
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,
