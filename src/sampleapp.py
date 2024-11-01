@@ -83,8 +83,8 @@ def main():
         return {"Hello": "World2"}
 
 
-    @app.get("/items/{item_id}")
-    def read_item(item_id: int, q: Union[str, None] = None):
-        return {"item_id": item_id, "q": q}
+    @app.get("/private", dependencies=[Depends(valid_access_token)])
+    def get_private():
+        return {"message": "Ce endpoint est privé"}
 
     return app
