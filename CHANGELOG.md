@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.19 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding gunicorn back ([`4fbd7ea`](https://github.com/Westfall-io/windstorm-dwarven/commit/4fbd7ea33b2a85119973f2a91a500957f851a90c))
+
 ## v0.0.18 (2024-11-01)
 
 ### :zap:
