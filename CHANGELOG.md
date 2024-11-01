@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.5 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding a single endpoint to empty API ([`14f3451`](https://github.com/Westfall-io/windstorm-dwarven/commit/14f345172deb8f3d79c9582aa5b5dec72b8ca3cf))
+
 ## v0.0.4 (2024-11-01)
 
 ### :bug:
