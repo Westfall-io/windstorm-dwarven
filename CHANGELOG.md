@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.12 (2024-11-01)
+
+### :zap:
+
+* :zap: Skipping gunicorn ([`17492c9`](https://github.com/Westfall-io/windstorm-dwarven/commit/17492c9cb1a62defe3fb655b24ff574ee1ae4797))
+
 ## v0.0.11 (2024-11-01)
 
 ### :zap:
