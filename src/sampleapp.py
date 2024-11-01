@@ -4,7 +4,30 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 def main():
-    app = FastAPI()
+    tags_metadata = [
+        {
+            "name": "artifacts",
+            "description": "Get details about git-config repos.",
+        },
+        {
+            "name": "containers",
+            "description": "Get details about registered containers.",
+        },
+        {
+            "name": "models",
+            "description": "Get details about models.",
+        },
+        {
+            "name": "views",
+            "description": "View data for the front-end.",
+        },
+        {
+            "name": "auth",
+            "description": "Future authenticated requests.",
+        }
+    ]
+
+    app = FastAPI(openapi_tags=tags_metadata)
 
     origins = [
         "https://windstorm-api.westfall.io",

@@ -31,4 +31,3 @@ COPY src src
 
 EXPOSE 8000
 CMD cd src && gunicorn -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 sampleapp:main
-##CMD cd src && uvicorn sampleapp:main --port 8000 --workers 4 --host 0.0.0.0
