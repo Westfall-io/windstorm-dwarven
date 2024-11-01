@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.24 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding keycloak endpoint ([`03942ff`](https://github.com/Westfall-io/windstorm-dwarven/commit/03942ff6a763419a608eb55ffee1c52e8c72ddd6))
+
 ## v0.0.23 (2024-11-01)
 
 ### :zap:
