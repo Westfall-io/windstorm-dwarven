@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.10 (2024-11-01)
+
+### :zap:
+
+* :zap: Updating dependency to see if it&#39;s resolved ([`84f5e0d`](https://github.com/Westfall-io/windstorm-dwarven/commit/84f5e0d6b4460240c4fcbe54343e7dc75d3d1d3f))
+
 ## v0.0.9 (2024-11-01)
 
 ### :zap:
