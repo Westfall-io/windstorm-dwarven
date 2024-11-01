@@ -265,13 +265,13 @@ def main(given):
         }
     ]
 
-    app = FastAPI(openapi_tags=tags_metadata)
+    #app = FastAPI(openapi_tags=tags_metadata)
 
+    app = FastAPI()
     @app.get("/", tags=["models"])
     def public():
         return 'Hello World'
-    
-    return app
+
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,
@@ -279,6 +279,8 @@ def main(given):
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    return app
 
     _, engine = connect()
     session = Session(engine)
