@@ -1,6 +1,12 @@
 # CHANGELOG
 
+## v0.0.2 (2024-11-01)
+
 ## v0.0.1 (2024-11-01)
+
+### :heavy_plus_sign:
+
+* :heavy_plus_sign: Adding jwt dependency ([`d43349f`](https://github.com/Westfall-io/windstorm-dwarven/commit/d43349fbf4381c078bc0c44c6e117e1c5e86072d))
 
 ### Other
 
