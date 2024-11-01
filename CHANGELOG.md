@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.15 (2024-11-01)
+
+### :zap:
+
+* :zap: Fixing app ([`9d63fb0`](https://github.com/Westfall-io/windstorm-dwarven/commit/9d63fb0df045188d3e3654fb19ddbda5ed4b3807))
+
 ## v0.0.14 (2024-11-01)
 
 ### :zap:
