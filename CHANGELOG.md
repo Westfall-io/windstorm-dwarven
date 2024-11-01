@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.9 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding tmp dir ([`aeb2c5f`](https://github.com/Westfall-io/windstorm-dwarven/commit/aeb2c5f32e029bfdb564b22fc1a82754ce00fe87))
+
 ## v0.0.8 (2024-11-01)
 
 ## v0.0.7 (2024-11-01)
