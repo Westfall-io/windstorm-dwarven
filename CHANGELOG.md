@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.18 (2024-11-01)
+
+### :zap:
+
+* :zap: Adding CORS back ([`4e527ea`](https://github.com/Westfall-io/windstorm-dwarven/commit/4e527ea342a161f5f7eb9e3faab75edc0475eaa6))
+
 ## v0.0.17 (2024-11-01)
 
 ### :zap:
