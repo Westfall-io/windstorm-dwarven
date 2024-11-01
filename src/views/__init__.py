@@ -14,20 +14,3 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-FROM python:3.11-slim
-
-WORKDIR /app
-
-## Install python libraries
-RUN apt-get update && apt-get install -y libpq-dev gcc
-RUN pip install "psycopg[binary]"
-COPY ./requirements.txt ./requirements.txt
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-
-WORKDIR /app
-COPY src src
-
-EXPOSE 8000
-CMD cd src && gunicorn -w 4 -k uvicorn.workers.UvicornWorker -b 0.0.0.0:8000 main:main

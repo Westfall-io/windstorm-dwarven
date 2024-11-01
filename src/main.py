@@ -17,10 +17,13 @@
 
 import os
 
-SQLDEF = "localhost:5432"
-SQLHOST = os.environ.get("SQLHOST",SQLDEF)
-HARBORDEF = "core.harbor.domain/"
-HARBORPATH = os.environ.get("HARBORPATH",HARBORDEF)
+# Get environment variables
+SQLHOST = os.environ.get("SQLHOST","localhost:5432")
+HARBORPATH = os.environ.get("HARBORPATH","core.harbor.domain/")
+
+PGUSER = os.environ.get("PGUSER","postgres")
+PGPASSWD = os.environ.get("PGPASSWD","mysecretpassword")
+PGDBNAME = os.environ.get("PGDBNAME","pgdb")
 
 import json
 import math
@@ -39,6 +42,7 @@ origins = [
     "https://digitalforge.westfall.io",
     "http://localhost",
     "http://localhost:8080",
+    "https://windstorm-api.digitalforge.app",
 ]
 
 from sqlalchemy.orm import Session
@@ -55,10 +59,10 @@ from views.public import get_commit_view, get_reqts_view, get_verfs_view, \
 
 def connect():
     db_type = "postgresql"
-    user = "postgres"
-    passwd = "mysecretpassword"
+    user = PGUSER
+    passwd = PGPASSWD
     address = SQLHOST
-    db_name = "sysml2"
+    db_name = PGDBNAME
 
     address = db_type+"://"+user+":"+passwd+"@"+address+"/"+db_name
     engine = db.create_engine(address)
