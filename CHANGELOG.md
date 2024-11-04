@@ -1,6 +1,12 @@
 # CHANGELOG
 
+## v0.0.30 (2024-11-04)
+
 ## v0.0.29 (2024-11-01)
+
+### :bug:
+
+* :bug: Adding new site to CORS list ([`8cc1fb8`](https://github.com/Westfall-io/windstorm-dwarven/commit/8cc1fb87b8d147f5001267a9d4820da6bf50f778))
 
 ### :zap:
 
