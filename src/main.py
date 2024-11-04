@@ -65,6 +65,7 @@ origins = [
     "http://localhost",
     "http://localhost:8080",
     "https://windstorm-api.digitalforge.app",
+    "https://home.digitalforge.app"
 ]
 
 from sqlalchemy.orm import Session
