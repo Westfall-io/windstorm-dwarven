@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.0.29 (2024-11-01)
+
+### :zap:
+
+* :zap: All this for a simple password error ([`29b3d14`](https://github.com/Westfall-io/windstorm-dwarven/commit/29b3d14381f536565a6b3898d8ba79f7e19cd52a))
+
 ## v0.0.28 (2024-11-01)
 
 ### :zap:
