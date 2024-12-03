@@ -99,7 +99,7 @@ def get_harbor(container, session):
         return None, 'No container was specified, check metadata in model.'
 
     if not 'app://' == container[:6]:
-        return None, 'The action is invalidly defines a container, it should start with app://.'
+        return None, 'The action invalidly defines a container, it should start with app://.'
 
     container_path = HARBORPATH+container[6:]
     container_result = session \
@@ -112,7 +112,7 @@ def get_harbor(container, session):
         .first()
 
     if container_result is None:
-        return None, 'The action is could not find a registered container. Ensure the image/tag ({}) exists and webhooks have fired.'.format(container[6:])
+        return None, 'The action could not find a registered container. Ensure the image/tag ({}) exists and webhooks have fired. Was looking for {} and could not be found.'.format(container[6:], container_path)
 
     return container_result, None
 
