@@ -145,7 +145,7 @@ def get_commit_view(session, branch, size, page):
 
     return output
 
-def get_reqts_view(session, branch, size, page):
+def get_reqts_view(session, branch, size, page, filter_empty):
     model = session \
         .query(Model_Repo) \
         .first()
@@ -228,7 +228,12 @@ def get_reqts_view(session, branch, size, page):
                     break
             else:
                 this_r['verified'] = True
-        output['results'].append(this_r)
+        if not filter_empty or vs_tot > 0:
+            # vs_tot == 0 && filter_empty == True => False
+            # vs_tot == 1 && filter_empty == True => True
+            # vs_tot == 1 && filter_empty == False => True
+            # vs_tot == 0 && filter_empty == False => True
+            output['results'].append(this_r)
     return output
 
 def get_verfs_view(session, branch, size, page):

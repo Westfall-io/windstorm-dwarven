@@ -1467,8 +1467,8 @@ def main():
 
     ## Requirements Page
     @app.get("/views/requirements/", tags=["views"])
-    def view_reqts_main(size: Union[int, None] = 10, page: Union[int, None] = 1):
-        return get_reqts_view(session, None, size, page)
+    def view_reqts_main(size: Union[int, None] = 10, page: Union[int, None] = 1, filter_empty: Union[bool, None] = False):
+        return get_reqts_view(session, None, size, page, filter_empty)
 
     @app.get("/views/requirements/{ref}", tags=["views"])
     def view_reqts(ref: str, size: Union[int, None] = 10, page: Union[int, None] = 1):
