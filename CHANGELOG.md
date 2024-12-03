@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.0 (2024-12-03)
+
+### :sparkles:
+
+* :sparkles: Adding ability to filter requirements with linked verifications ([`c1b15f7`](https://github.com/Westfall-io/windstorm-dwarven/commit/c1b15f79c3f0605325f2957cd13d99db4f03c308))
+
 ## v0.0.30 (2024-11-04)
 
 ## v0.0.29 (2024-11-01)
