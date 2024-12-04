@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.7 (2024-12-04)
+
+### :bug:
+
+* :bug: Fixed an issue with incorrect bucket name parsing ([`5460ffd`](https://github.com/Westfall-io/windstorm-dwarven/commit/5460ffddaf9525be0588845042a02f4b9d4cff11))
+
 ## v0.1.6 (2024-12-04)
 
 ### :bug:
