@@ -17,6 +17,9 @@
 
 from env import *
 
+import logging
+logger = logging.getLogger("windstorm")
+
 import json
 import math
 from uuid import uuid4 as uuid_gen
@@ -42,7 +45,7 @@ oauth_2_scheme = OAuth2AuthorizationCodeBearer(
 async def valid_access_token(
     access_token: Annotated[str, Depends(oauth_2_scheme)]
 ):
-    print(access_token)
+    logger.warning(access_token)
     url = KCADDR+"/realms/"+KCREALM+"/protocol/openid-connect/certs"
     optional_custom_headers = {"User-agent": "custom-user-agent"}
     jwks_client = PyJWKClient(url, headers=optional_custom_headers)
