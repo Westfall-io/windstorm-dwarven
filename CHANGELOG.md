@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.4 (2024-12-04)
+
+### :bug:
+
+* :bug: Adding missing dependency to cryptography ([`2c08325`](https://github.com/Westfall-io/windstorm-dwarven/commit/2c08325f6e1c62cc45ee399e652741c070ccc76c))
+
 ## v0.1.3 (2024-12-04)
 
 ### :bug:
