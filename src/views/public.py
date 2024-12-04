@@ -368,7 +368,7 @@ def get_thread_view(session, thread_id, size, page):
         if 'windrunner_2' == te.state or 'windchest' in te.state:
             bucket = action.qualifiedName.lower().strip().replace('_', '-'). \
                 replace("'", "").replace('"', "").replace("\\","").replace("/",""). \
-                replace("::", ".")
+                replace("::", ".").replace(" ","-")
             if len(bucket) > 63:
                 bucket = bucket[:63]
             elif len(bucket) < 3:
@@ -382,13 +382,13 @@ def get_thread_view(session, thread_id, size, page):
                     url1 = client.get_presigned_url(
                         "GET",
                         bucket,
-                        'input'+te.name+'.zip',
+                        'input-'+te.name+'.zip',
                         expires=timedelta(hours=2),
                     )
                     url2 = client.get_presigned_url(
                         "GET",
                         bucket,
-                        'output'+te.name+'.zip',
+                        'output-'+te.name+'.zip',
                         expires=timedelta(hours=2),
                     )
                 else:
@@ -396,7 +396,7 @@ def get_thread_view(session, thread_id, size, page):
                     url1 = client.get_presigned_url(
                         "GET",
                         bucket,
-                        'input'+te.name+'.zip',
+                        'input-'+te.name+'.zip',
                         expires=timedelta(hours=2),
                     )
                     url2 = None
@@ -535,7 +535,7 @@ def get_tes_view(session, size, page):
         if 'windrunner_2' == thread.state or 'windchest' in thread.state:
             bucket = action.qualifiedName.lower().strip().replace('_', '-'). \
                 replace("'", "").replace('"', "").replace("\\","").replace("/",""). \
-                replace("::", ".")
+                replace("::", ".").replace(" ","-")
             if len(bucket) > 63:
                 bucket = bucket[:63]
             elif len(bucket) < 3:
