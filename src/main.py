@@ -34,15 +34,15 @@ from jwt import PyJWKClient
 import jwt
 
 oauth_2_scheme = OAuth2AuthorizationCodeBearer(
-    tokenUrl=KCADDR+"/"+KCREALM+"/protocol/openid-connect/token",
-    authorizationUrl=KCADDR+"/"+KCREALM+"/protocol/openid-connect/auth",
-    refreshUrl=KCADDR+"/"+KCREALM+"/protocol/openid-connect/token",
+    tokenUrl=KCADDR+"/realms/"+KCREALM+"/protocol/openid-connect/token",
+    authorizationUrl=KCADDR+"/realms/"+KCREALM+"/protocol/openid-connect/auth",
+    refreshUrl=KCADDR+"/realms/"+KCREALM+"/protocol/openid-connect/token",
 )
 
 async def valid_access_token(
     access_token: Annotated[str, Depends(oauth_2_scheme)]
 ):
-    url = KCADDR+"/"+KCREALM+"/protocol/openid-connect/certs"
+    url = KCADDR+"/realms/"+KCREALM+"/protocol/openid-connect/certs"
     optional_custom_headers = {"User-agent": "custom-user-agent"}
     jwks_client = PyJWKClient(url, headers=optional_custom_headers)
 
