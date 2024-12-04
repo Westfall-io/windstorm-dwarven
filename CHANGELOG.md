@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.8 (2024-12-04)
+
+### :bug:
+
+* :bug: Bypassing custom cert downloader ([`9e9c2e0`](https://github.com/Westfall-io/windstorm-dwarven/commit/9e9c2e0f84648bcd9c5bd2ef06b9942b14d66537))
+
 ## v0.1.7 (2024-12-04)
 
 ### :bug:
