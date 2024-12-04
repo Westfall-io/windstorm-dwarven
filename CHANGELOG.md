@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.3 (2024-12-04)
+
+### :bug:
+
+* :bug: Adding debug for access token issue ([`f8d626c`](https://github.com/Westfall-io/windstorm-dwarven/commit/f8d626c23e71efe33dfcf3ea06727dd9b5dd8d1a))
+
 ## v0.1.2 (2024-12-04)
 
 ## v0.1.1 (2024-12-03)
