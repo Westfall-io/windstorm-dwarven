@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.6 (2024-12-04)
+
+### :bug:
+
+* :bug: Fixed an issue with correct audience ([`7d8bb9e`](https://github.com/Westfall-io/windstorm-dwarven/commit/7d8bb9e66d14d1aeaf3666c7a27c3dbf20c68cb1))
+
 ## v0.1.5 (2024-12-04)
 
 ### :zap:
