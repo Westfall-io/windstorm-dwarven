@@ -1,8 +1,12 @@
 # CHANGELOG
 
+## v0.1.2 (2024-12-04)
+
 ## v0.1.1 (2024-12-03)
 
 ### :bug:
+
+* :bug: Fixed an issue with incorrect addresses to keycloak endpoints ([`49aabe7`](https://github.com/Westfall-io/windstorm-dwarven/commit/49aabe724d6a98063f51edef87363b2f21f3dc98))
 
 * :bug: Adding additional info to container querying ([`faf6b27`](https://github.com/Westfall-io/windstorm-dwarven/commit/faf6b27a61a80879f19a3fbc9e5ad6719f1e5f5d))
 
