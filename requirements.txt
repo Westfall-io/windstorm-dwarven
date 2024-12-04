@@ -6,3 +6,4 @@ gunicorn==22.0.0
 pydantic==2.4.1
 minio==7.1.17
 PyJWT==2.9.0
+cryptography==44.0.0
