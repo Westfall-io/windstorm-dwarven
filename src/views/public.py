@@ -84,7 +84,7 @@ client = Minio(
     access_key=minio_access_key,
     secret_key=minio_secret_key,
     secure=True,
-    http_client=httpClient
+    #http_client=httpClient
 )
 
 from database.db_model import Commits, Model_Repo, Models, Elements, \
