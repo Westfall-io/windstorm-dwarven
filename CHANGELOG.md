@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.1.1 (2024-12-03)
+
+### :bug:
+
+* :bug: Adding additional info to container querying ([`faf6b27`](https://github.com/Westfall-io/windstorm-dwarven/commit/faf6b27a61a80879f19a3fbc9e5ad6719f1e5f5d))
+
 ## v0.1.0 (2024-12-03)
 
 ### :sparkles:
