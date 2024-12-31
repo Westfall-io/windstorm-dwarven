@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.2.0 (2024-12-31)
+
+### :sparkles:
+
+* :sparkles: Migrating from minikube version to fully hosted k8s ([`62b64d0`](https://github.com/Westfall-io/windstorm-dwarven/commit/62b64d07f5df2986d48545e6c3315ac7771c72c7))
+
 ## v0.1.8 (2024-12-04)
 
 ### :bug:
