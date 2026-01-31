@@ -17,6 +17,14 @@
 
 import os
 
+"""Public view helpers used by the FastAPI application.
+
+This module implements presentation-layer functions which assemble
+database records into JSON-serializable views consumed by the front-end.
+Functions expect an active SQLAlchemy `session` and return plain Python
+structures (dictionaries/lists) ready for JSON encoding.
+"""
+
 minio_access_key = os.environ.get("MINIOACCESSKEY")
 minio_secret_key = os.environ.get("MINIOSECRETKEY")
 
@@ -92,6 +100,12 @@ from database.db_model import Commits, Model_Repo, Models, Elements, \
     Artifacts_Commits, Containers, Container_Commits, Thread_Executions
 
 def get_commit_view(session, branch, size, page):
+    """Return a paginated view of commits for the given branch.
+
+    The function looks up the `Model_Repo` default branch if `branch` is
+    not provided and returns pagination metadata along with the commit
+    entries.
+    """
 
     model = session \
         .query(Model_Repo) \
@@ -146,6 +160,11 @@ def get_commit_view(session, branch, size, page):
     return output
 
 def get_reqts_view(session, branch, size, page, filter_empty):
+    """Return a paginated view of requirements for the head commit.
+
+    If `filter_empty` is True only requirements with linked verifications
+    are returned.
+    """
     model = session \
         .query(Model_Repo) \
         .first()
@@ -237,6 +256,7 @@ def get_reqts_view(session, branch, size, page, filter_empty):
     return output
 
 def get_verfs_view(session, branch, size, page):
+    """Return verifications for the head commit with linked action counts."""
     model = session \
         .query(Model_Repo) \
         .first()
@@ -317,6 +337,12 @@ def get_verfs_view(session, branch, size, page):
     return output
 
 def get_thread_view(session, thread_id, size, page):
+    """Return thread executions and pre-signed links for artifact storage.
+
+    For `windrunner`/`windchest` states this will try to construct MinIO
+    pre-signed URLs for the input and output archives. A number of bucket
+    sanitization steps are applied to produce a valid bucket name.
+    """
     # Get thread executions
     action = session \
         .query(Actions) \
@@ -374,6 +400,7 @@ def get_thread_view(session, thread_id, size, page):
             elif len(bucket) < 3:
                 bucket = bucket+'-bucket'
 
+            # Check for the expected MinIO bucket; if it exists, build URLs
             found = client.bucket_exists(bucket)
             if found:
                 # Bucket exists
@@ -422,6 +449,7 @@ def get_thread_view(session, thread_id, size, page):
     return output
 
 def get_threads_view(session, branch, size, page):
+    """Return a paginated list of actions (threads) for the head commit."""
     model = session \
         .query(Model_Repo) \
         .first()
@@ -490,6 +518,11 @@ def get_threads_view(session, branch, size, page):
     return output
 
 def get_tes_view(session, size, page):
+    """Return thread execution records with associated artifact/container info.
+
+    Uses MinIO to construct pre-signed URLs when files exist. Results are
+    returned with pagination metadata.
+    """
     tes_cnt = session \
         .query(Thread_Executions.id) \
         .order_by(db.desc(Thread_Executions.date_updated)) \

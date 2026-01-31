@@ -21,12 +21,28 @@ import sqlalchemy as db
 from sqlalchemy.orm import DeclarativeBase, Mapped, \
     mapped_column, MappedAsDataclass, relationship
 
+"""SQLAlchemy ORM model definitions for the application.
+
+Each mapped class represents a table in the application's database. The
+models use modern SQLAlchemy typing helpers (`Mapped`, `mapped_column`)
+so instances are friendly dataclasses while remaining full ORM objects.
+"""
+
 class Base(MappedAsDataclass, DeclarativeBase):
     """subclasses will be converted to dataclasses"""
 
 class Commits(Base):
     __tablename__ = "commits"
     id: Mapped[int] = mapped_column(init=False, primary_key=True)
+    """Store repository commit metadata.
+
+    Fields:
+    - `ref`: branch or ref name
+    - `commit`: commit hash
+    - `processed`: whether the commit has been processed by the system
+    - `date`: timestamp of the commit
+    """
+
     ref: Mapped[str] = mapped_column(db.String(255))
     commit: Mapped[str] = mapped_column(db.String(255))
     processed: Mapped[bool] = mapped_column(db.Boolean())
@@ -51,6 +67,12 @@ class Models(Base):
     element_name: Mapped[str] = mapped_column(db.String(255))
 
     def set_id(self, id):
+        """Utility to set the primary key and return self for chaining.
+
+        This helper is used in some code paths when the object is created
+        and the id must be applied after creation.
+        """
+
         self.id = id
         return self
 
@@ -63,6 +85,8 @@ class Elements(Base):
      element_name: Mapped[str] = mapped_column(db.String(255))
 
      def set_id(self, id):
+         """Set the ORM primary key for this instance and return self."""
+
          self.id = id
          return self
 

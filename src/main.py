@@ -16,7 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from env import *
+# Module docstring describing the purpose of the API module
+"""Windstorm API application.
 
+This module wires together FastAPI endpoints, authentication helpers, and
+database access for the Windstorm service. Route functions are registered
+inside the `main()` factory which returns a configured FastAPI app.
+"""
 import logging
 logger = logging.getLogger("windstorm")
 
@@ -45,6 +51,14 @@ oauth_2_scheme = OAuth2AuthorizationCodeBearer(
 async def valid_access_token(
     access_token: Annotated[str, Depends(oauth_2_scheme)]
 ):
+    """Validate a Keycloak JWT access token.
+
+    This function is used as a FastAPI dependency to enforce authentication.
+    It fetches the JWKS from Keycloak and decodes the provided token, raising
+    HTTP 401 when the token is invalid.
+    """
+
+    # Log for debugging, then fetch JWKS and verify the token signature
     logger.warning('Checking access token: {}'.format(access_token))
     url = KCADDR+"/realms/"+KCREALM+"/protocol/openid-connect/certs"
     optional_custom_headers = {"User-agent": "custom-user-agent"}
@@ -87,6 +101,11 @@ from views.public import get_commit_view, get_reqts_view, get_verfs_view, \
     get_thread_view, get_threads_view, get_tes_view
 
 def connect():
+    """Create a SQLAlchemy engine and return an active connection.
+
+    The connection string is constructed from environment variables in
+    `env.py`. Returns a tuple `(conn, engine)`.
+    """
     db_type = "postgresql"
     user = PGUSER
     passwd = PGPASSWD
@@ -100,6 +119,13 @@ def connect():
     return conn, engine
 
 def get_harbor(container, session):
+    """Resolve a container URI (app://...) to the latest registered container.
+
+    Returns `(container_result, None)` on success, or `(None, error_message)`
+    when the container cannot be resolved. Expects `container` to start with
+    `app://` and uses `HARBORPATH` to construct the registry path.
+    """
+
     if container is None:
         return None, 'No container was specified, check metadata in model.'
 
@@ -122,6 +148,13 @@ def get_harbor(container, session):
     return container_result, None
 
 def build_action(result, none_msg, output, session):
+    """Build a standardized response for a single action/thread.
+
+    This helper validates artifact/container metadata and returns a
+    structure suitable for API responses. If `result` is None, an error
+    message is returned in the `output` dictionary.
+    """
+
     if result is None:
         output['total'] = 0
         output['results_per_page'] = 0
@@ -207,6 +240,13 @@ def build_action(result, none_msg, output, session):
 
 def get_artifact_from_uri(uri, session):
     # Input is git://Westfall/python-sample
+    """Find an artifact record for a `git://...` URI.
+
+    Returns `(artifact_result, None)` on success or `(None, error_message)`
+    when the artifact cannot be found. The expected input format is
+    `git://organization/repository` or `git://organization/repository/branch`.
+    """
+
     if uri is None:
         return None, 'No artifact uri was specified, check metadata in model.'
 

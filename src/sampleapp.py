@@ -17,6 +17,14 @@
 
 from env import *
 
+"""Small example FastAPI app used for development and testing.
+
+This module provides a lightweight application exposing a couple of
+endpoints and a helper to validate Keycloak-issued access tokens. It
+mirrors the authentication flow used in the main API but is intentionally
+minimal for local testing.
+"""
+
 from typing import Union, Annotated
 
 from fastapi import FastAPI, Depends, HTTPException
@@ -36,6 +44,13 @@ oauth_2_scheme = OAuth2AuthorizationCodeBearer(
 async def valid_access_token(
     access_token: Annotated[str, Depends(oauth_2_scheme)]
 ):
+    """Validate an OAuth2 access token against Keycloak JWKS.
+
+    Returns the decoded token payload on success or raises HTTPException(401)
+    when validation fails.
+    """
+
+    # Build the Keycloak JWKS URL and fetch the public keys
     url = KCADDR+"/"+KCREALM+"/protocol/openid-connect/certs"
     optional_custom_headers = {"User-agent": "custom-user-agent"}
     jwks_client = PyJWKClient(url, headers=optional_custom_headers)
@@ -70,6 +85,12 @@ def connect():
     conn = engine.connect()
 
     return conn, engine
+
+"""Connect helper for development.
+
+Returns a tuple `(conn, engine)` pointing to the configured PostgreSQL
+database using credentials from :mod:`env`.
+"""
 
 def main():
     tags_metadata = [

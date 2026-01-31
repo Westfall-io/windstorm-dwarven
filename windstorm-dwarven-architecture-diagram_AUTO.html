@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windstorm Dwarven Architecture</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: #f5f7fa;
+            color: #1a2332;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a2332;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: #64748b;
+            margin-bottom: 50px;
+        }
+
+        .diagram-container {
+            background: white;
+            border-radius: 12px;
+            padding: 60px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            min-width: 1400px;
+        }
+
+        .box {
+            fill: white;
+            stroke: #334155;
+            stroke-width: 2;
+        }
+
+        .box-external {
+            fill: #f1f5f9;
+            stroke: #0ea5e9;
+            stroke-width: 2.5;
+        }
+
+        .box-core {
+            fill: #fef3c7;
+            stroke: #f59e0b;
+            stroke-width: 3;
+        }
+
+        .box-api {
+            fill: #e0f2fe;
+            stroke: #0284c7;
+            stroke-width: 2;
+        }
+
+        .box-db {
+            fill: #f0fdf4;
+            stroke: #10b981;
+            stroke-width: 2.5;
+        }
+
+        .box-auth {
+            fill: #fce7f3;
+            stroke: #ec4899;
+            stroke-width: 2.5;
+        }
+
+        .box-storage {
+            fill: #f3e8ff;
+            stroke: #a855f7;
+            stroke-width: 2.5;
+        }
+
+        .title-text {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            fill: #1a2332;
+        }
+
+        .subtitle-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 13px;
+            fill: #64748b;
+        }
+
+        .detail-text {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            fill: #475569;
+        }
+
+        .arrow {
+            stroke: #64748b;
+            stroke-width: 2.5;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .arrow-thick {
+            stroke: #0ea5e9;
+            stroke-width: 3;
+            fill: none;
+            marker-end: url(#arrowhead-blue);
+        }
+
+        .arrow-auth {
+            stroke: #ec4899;
+            stroke-width: 2.5;
+            fill: none;
+            marker-end: url(#arrowhead-pink);
+        }
+
+        .arrow-storage {
+            stroke: #a855f7;
+            stroke-width: 2.5;
+            fill: none;
+            marker-end: url(#arrowhead-purple);
+        }
+
+        .label-text {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 12px;
+            fill: #475569;
+            font-weight: 500;
+        }
+
+        .section-label {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 14px;
+            fill: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .legend {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+
+        .legend-box {
+            width: 40px;
+            height: 24px;
+            border-radius: 4px;
+            border: 2px solid;
+        }
+
+        .legend-external { background: #f1f5f9; border-color: #0ea5e9; }
+        .legend-core { background: #fef3c7; border-color: #f59e0b; }
+        .legend-api { background: #e0f2fe; border-color: #0284c7; }
+        .legend-db { background: #f0fdf4; border-color: #10b981; }
+        .legend-auth { background: #fce7f3; border-color: #ec4899; }
+        .legend-storage { background: #f3e8ff; border-color: #a855f7; }
+
+        @media (max-width: 768px) {
+            .diagram-container {
+                padding: 30px 20px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Windstorm Dwarven Architecture</h1>
+        <p class="subtitle">High-Level Block Diagram — Backend REST API Service</p>
+
+        <div class="diagram-container">
+            <svg viewBox="0 0 1500 1100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <!-- Arrow markers -->
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#64748b" />
+                    </marker>
+                    <marker id="arrowhead-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#0ea5e9" />
+                    </marker>
+                    <marker id="arrowhead-pink" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#ec4899" />
+                    </marker>
+                    <marker id="arrowhead-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#a855f7" />
+                    </marker>
+                </defs>
+
+                <!-- Section Labels -->
+                <text x="60" y="40" class="section-label">External Clients</text>
+                <text x="750" y="40" class="section-label" text-anchor="middle">Windstorm Dwarven Backend</text>
+
+                <!-- Frontend Clients (External) -->
+                <rect x="50" y="80" width="280" height="120" rx="8" class="box-external"/>
+                <text x="190" y="115" class="title-text" text-anchor="middle">Frontend Clients</text>
+                <text x="190" y="140" class="subtitle-text" text-anchor="middle">Web UI / API Consumers</text>
+                <text x="190" y="165" class="detail-text" text-anchor="middle">HTTP REST requests</text>
+                <text x="190" y="183" class="detail-text" text-anchor="middle">with OAuth2 tokens</text>
+
+                <!-- Arrow: Clients → FastAPI -->
+                <path d="M 330 140 L 450 140" class="arrow-thick"/>
+                <text x="390" y="130" class="label-text" text-anchor="middle">HTTPS</text>
+
+                <!-- Windstorm Dwarven Core -->
+                <rect x="450" y="80" width="500" height="720" rx="10" class="box-core"/>
+                <text x="700" y="115" class="title-text" text-anchor="middle">Windstorm Dwarven</text>
+                <text x="700" y="140" class="subtitle-text" text-anchor="middle">FastAPI Application</text>
+
+                <!-- Internal Components -->
+                <g id="internal-components">
+                    <!-- FastAPI Router -->
+                    <rect x="480" y="170" width="440" height="90" rx="6" class="box-api"/>
+                    <text x="700" y="197" class="title-text" text-anchor="middle" font-size="16">FastAPI Router (src/main.py)</text>
+                    <text x="700" y="220" class="detail-text" text-anchor="middle">REST API Endpoints:</text>
+                    <text x="700" y="238" class="detail-text" text-anchor="middle">/models/commits, /models/requirements/main, /models/verifications,</text>
+                    <text x="700" y="253" class="detail-text" text-anchor="middle">/models/threads/*, /artifacts, /artifacts/{id}/refs</text>
+
+                    <!-- Token Validation -->
+                    <rect x="480" y="280" width="440" height="70" rx="6" class="box-api"/>
+                    <text x="700" y="307" class="title-text" text-anchor="middle" font-size="16">Token Validation</text>
+                    <text x="700" y="328" class="detail-text" text-anchor="middle">valid_access_token() - Validates JWT from Keycloak</text>
+
+                    <!-- Database Layer -->
+                    <rect x="480" y="370" width="440" height="90" rx="6" class="box-api"/>
+                    <text x="700" y="397" class="title-text" text-anchor="middle" font-size="16">Database Layer</text>
+                    <text x="700" y="418" class="subtitle-text" text-anchor="middle">src/database/db_model.py</text>
+                    <text x="700" y="438" class="detail-text" text-anchor="middle">SQLAlchemy ORM Models: commits, model_repo, models, elements,</text>
+                    <text x="700" y="453" class="detail-text" text-anchor="middle">requirements, verifications, actions, artifacts, containers, etc.</text>
+
+                    <!-- View Helpers -->
+                    <rect x="480" y="480" width="440" height="100" rx="6" class="box-api"/>
+                    <text x="700" y="507" class="title-text" text-anchor="middle" font-size="16">View Helpers (src/views/public.py)</text>
+                    <text x="700" y="530" class="detail-text" text-anchor="middle">JSON Presentation Layer:</text>
+                    <text x="700" y="548" class="detail-text" text-anchor="middle">• Commit views, requirements view, thread views</text>
+                    <text x="700" y="563" class="detail-text" text-anchor="middle">• Pre-signed MinIO URLs for execution artifacts</text>
+
+                    <!-- Sample App -->
+                    <rect x="480" y="600" width="440" height="70" rx="6" class="box-api"/>
+                    <text x="700" y="627" class="title-text" text-anchor="middle" font-size="16">Sample App (src/sampleapp.py)</text>
+                    <text x="700" y="648" class="detail-text" text-anchor="middle">Lightweight test app with token validation</text>
+
+                    <!-- Environment Config -->
+                    <rect x="480" y="690" width="440" height="90" rx="6" class="box" style="fill: #fafafa; stroke: #94a3b8;"/>
+                    <text x="700" y="717" class="title-text" text-anchor="middle" font-size="16">Environment Config (src/env.py)</text>
+                    <text x="700" y="738" class="detail-text" text-anchor="middle">SQLHOST, PGUSER, PGPASSWD, PGDBNAME, HARBORPATH,</text>
+                    <text x="700" y="753" class="detail-text" text-anchor="middle">KCREALM, KCADDR, MINIOACCESSKEY, MINIOSECRETKEY</text>
+                </g>
+
+                <!-- PostgreSQL Database (External) -->
+                <rect x="1050" y="80" width="400" height="320" rx="8" class="box-db"/>
+                <text x="1250" y="115" class="title-text" text-anchor="middle">PostgreSQL Database</text>
+                <text x="1250" y="140" class="subtitle-text" text-anchor="middle">SQLHOST:5432</text>
+                
+                <text x="1250" y="170" class="detail-text" text-anchor="middle" font-weight="600">Core Tables (src/database/db_model.py):</text>
+                <text x="1250" y="190" class="detail-text" text-anchor="middle">• commits — commit metadata (branch, hash, processed)</text>
+                <text x="1250" y="208" class="detail-text" text-anchor="middle">• model_repo — repository metadata & default branch</text>
+                <text x="1250" y="226" class="detail-text" text-anchor="middle">• models, elements, models_elements — model docs</text>
+                <text x="1250" y="244" class="detail-text" text-anchor="middle">• requirements (Reqts) — extracted requirements</text>
+                <text x="1250" y="262" class="detail-text" text-anchor="middle">• verifications — verification entries</text>
+                <text x="1250" y="280" class="detail-text" text-anchor="middle">• actions — threads referencing containers/artifacts</text>
+                <text x="1250" y="298" class="detail-text" text-anchor="middle">• artifacts, artifact_commits — artifact records</text>
+                <text x="1250" y="316" class="detail-text" text-anchor="middle">• containers, container_commits — container images</text>
+                <text x="1250" y="334" class="detail-text" text-anchor="middle">• thread_executions — execution records</text>
+                <text x="1250" y="362" class="detail-text" text-anchor="middle" font-weight="600">Total: 10+ tables with relationships</text>
+
+                <!-- Arrow: Dwarven → PostgreSQL -->
+                <path d="M 950 240 L 1050 240" class="arrow"/>
+                <text x="1000" y="230" class="label-text" text-anchor="middle">SQLAlchemy</text>
+                <text x="1000" y="248" class="label-text" text-anchor="middle">ORM queries</text>
+
+                <!-- Keycloak (External) -->
+                <rect x="1050" y="430" width="400" height="140" rx="8" class="box-auth"/>
+                <text x="1250" y="465" class="title-text" text-anchor="middle">Keycloak OAuth2</text>
+                <text x="1250" y="490" class="subtitle-text" text-anchor="middle">KCADDR / KCREALM</text>
+                <text x="1250" y="515" class="detail-text" text-anchor="middle">Services:</text>
+                <text x="1250" y="533" class="detail-text" text-anchor="middle">• JWT token validation (JWKS)</text>
+                <text x="1250" y="551" class="detail-text" text-anchor="middle">• OAuth2 authentication & authorization</text>
+
+                <!-- Arrow: Dwarven → Keycloak -->
+                <path d="M 950 315 L 1020 315 L 1020 500 L 1050 500" class="arrow-auth"/>
+                <text x="985" y="405" class="label-text" text-anchor="middle">Validate</text>
+                <text x="985" y="423" class="label-text" text-anchor="middle">JWT tokens</text>
+
+                <!-- MinIO (External) -->
+                <rect x="1050" y="600" width="400" height="140" rx="8" class="box-storage"/>
+                <text x="1250" y="635" class="title-text" text-anchor="middle">MinIO Object Storage</text>
+                <text x="1250" y="660" class="subtitle-text" text-anchor="middle">MINIOACCESSKEY / MINIOSECRETKEY</text>
+                <text x="1250" y="685" class="detail-text" text-anchor="middle">Storage:</text>
+                <text x="1250" y="703" class="detail-text" text-anchor="middle">• Execution inputs/outputs</text>
+                <text x="1250" y="721" class="detail-text" text-anchor="middle">• Pre-signed URLs generated by view helpers</text>
+
+                <!-- Arrow: Dwarven → MinIO -->
+                <path d="M 950 540 L 1020 540 L 1020 670 L 1050 670" class="arrow-storage"/>
+                <text x="985" y="600" class="label-text" text-anchor="middle">Generate</text>
+                <text x="985" y="618" class="label-text" text-anchor="middle">pre-signed URLs</text>
+
+                <!-- Harbor Registry Reference -->
+                <rect x="1050" y="770" width="400" height="100" rx="8" class="box-external"/>
+                <text x="1250" y="805" class="title-text" text-anchor="middle">Harbor Registry</text>
+                <text x="1250" y="830" class="subtitle-text" text-anchor="middle">HARBORPATH</text>
+                <text x="1250" y="855" class="detail-text" text-anchor="middle">Referenced for container image paths</text>
+
+                <!-- Arrow: Dwarven references Harbor -->
+                <path d="M 950 740 L 1020 740 L 1020 820 L 1050 820" class="arrow" stroke-dasharray="5,5" opacity="0.6"/>
+                <text x="985" y="775" class="label-text" text-anchor="middle">References</text>
+
+                <!-- Runtime Info -->
+                <rect x="50" y="900" width="900" height="120" rx="8" class="box" style="fill: #fafafa; stroke: #94a3b8;"/>
+                <text x="500" y="935" class="title-text" text-anchor="middle">Runtime & Deployment</text>
+                <text x="500" y="960" class="detail-text" text-anchor="middle">Server: Uvicorn ASGI server</text>
+                <text x="500" y="978" class="detail-text" text-anchor="middle">Command: uvicorn src.main:main --reload --factory</text>
+                <text x="500" y="996" class="detail-text" text-anchor="middle">Framework: FastAPI with SQLAlchemy ORM, OAuth2 JWT validation, MinIO integration</text>
+
+            </svg>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-box legend-external"></div>
+                <span>External Client/System</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box legend-core"></div>
+                <span>Dwarven Application</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box legend-api"></div>
+                <span>Internal Component</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box legend-db"></div>
+                <span>Database</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box legend-auth"></div>
+                <span>Authentication</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-box legend-storage"></div>
+                <span>Object Storage</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
