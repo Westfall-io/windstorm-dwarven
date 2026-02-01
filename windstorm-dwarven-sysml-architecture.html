@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windstorm-Dwarven - SysML v2 Architecture & Deployment</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: #f8f9fa;
+            padding: 15px 40px;
+            border-bottom: 2px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        nav a {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        
+        nav a:hover {
+            color: #667eea;
+            background: #e9ecef;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        section {
+            margin-bottom: 60px;
+            scroll-margin-top: 80px;
+        }
+        
+        h2 {
+            color: #1e3c72;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h3 {
+            color: #2a5298;
+            font-size: 1.5em;
+            margin: 30px 0 15px 0;
+        }
+        
+        h4 {
+            color: #495057;
+            font-size: 1.2em;
+            margin: 20px 0 10px 0;
+        }
+        
+        .diagram-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2a5298;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        code {
+            background: #f1f3f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        th {
+            background: #2a5298;
+            color: white;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 2px;
+        }
+        
+        .badge-primary { background: #667eea; color: white; }
+        .badge-success { background: #28a745; color: white; }
+        .badge-info { background: #17a2b8; color: white; }
+        .badge-warning { background: #ffc107; color: #212529; }
+        
+        footer {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌪️ Windstorm-Dwarven</h1>
+            <p>SysML v2 Model, Architecture & Deployment Design</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Model-Based Systems Engineering for DigitalForge</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#sysml">SysML v2 Model</a></li>
+                <li><a href="#physical">Physical Architecture</a></li>
+                <li><a href="#functional">Functional Architecture</a></li>
+                <li><a href="#deployment">Deployment Design</a></li>
+                <li><a href="#data-model">Data Model</a></li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            <!-- OVERVIEW SECTION -->
+            <section id="overview">
+                <h2>📋 System Overview</h2>
+                
+                <div class="info-box">
+                    <h4>System Purpose</h4>
+                    <p>Windstorm-Dwarven is a FastAPI-based backend service that provides comprehensive API support for the DigitalForge ecosystem. It manages model-based systems engineering (MBSE) workflows, including requirements management, verification tracking, action orchestration, and artifact/container registry integration.</p>
+                </div>
+                
+                <h3>Key Capabilities</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th>Description</th>
+                            <th>Technology</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Model Management</strong></td>
+                            <td>Stores and tracks SysML v2 model commits, elements, and relationships</td>
+                            <td>PostgreSQL, SQLAlchemy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Requirements Traceability</strong></td>
+                            <td>Manages requirements and their verification status across model versions</td>
+                            <td>Relational Data Model</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Verification Orchestration</strong></td>
+                            <td>Coordinates execution of verification actions with containers and artifacts</td>
+                            <td>Harbor Registry, Git Repositories</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Artifact Storage</strong></td>
+                            <td>Manages execution inputs/outputs via object storage</td>
+                            <td>MinIO S3-compatible storage</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Authentication</strong></td>
+                            <td>OAuth2/OIDC integration for secure API access</td>
+                            <td>Keycloak</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RESTful API</strong></td>
+                            <td>Comprehensive REST endpoints for all operations</td>
+                            <td>FastAPI, OpenAPI</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>System Characteristics</h3>
+                <ul>
+                    <li><span class="badge badge-primary">Python 3.11</span></li>
+                    <li><span class="badge badge-success">FastAPI Framework</span></li>
+                    <li><span class="badge badge-info">PostgreSQL Database</span></li>
+                    <li><span class="badge badge-warning">Docker Containerized</span></li>
+                    <li><span class="badge badge-primary">OAuth2 Secured</span></li>
+                    <li><span class="badge badge-success">RESTful Design</span></li>
+                </ul>
+            </section>
+            
+            <!-- SYSML V2 MODEL SECTION -->
+            <section id="sysml">
+                <h2>🏗️ SysML v2 Model</h2>
+                
+                <h3>Package Structure</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    subgraph "Windstorm System"
+        WS[Windstorm Package]
+        
+        subgraph "Domain Model"
+            DM[Domain Model Package]
+            REQ[Requirements Package]
+            VER[Verifications Package]
+            ACT[Actions Package]
+            MOD[Models Package]
+        end
+        
+        subgraph "Integration Layer"
+            INT[Integrations Package]
+            AUTH[Authentication Package]
+            REG[Registry Package]
+            STOR[Storage Package]
+        end
+        
+        subgraph "Infrastructure"
+            INF[Infrastructure Package]
+            DB[Database Package]
+            API[API Package]
+            VIEWS[Views Package]
+        end
+        
+        WS --> DM
+        WS --> INT
+        WS --> INF
+        
+        DM --> REQ
+        DM --> VER
+        DM --> ACT
+        DM --> MOD
+        
+        INT --> AUTH
+        INT --> REG
+        INT --> STOR
+        
+        INF --> DB
+        INF --> API
+        INF --> VIEWS
+    end
+    
+    style WS fill:#667eea,stroke:#333,stroke-width:3px,color:#fff
+    style DM fill:#2a5298,stroke:#333,stroke-width:2px,color:#fff
+    style INT fill:#2a5298,stroke:#333,stroke-width:2px,color:#fff
+    style INF fill:#2a5298,stroke:#333,stroke-width:2px,color:#fff
+                    </div>
+                </div>
+                
+                <h3>Block Definition Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+classDiagram
+    class WindstormSystem {
+        +String version
+        +String environment
+        +connect() Connection
+        +main() FastAPI
+    }
+    
+    class APIService {
+        +FastAPI app
+        +String baseUrl
+        +handleRequest()
+        +authenticateUser()
+        +validateToken()
+    }
+    
+    class DatabaseService {
+        +Engine engine
+        +Connection connection
+        +String connectionString
+        +query()
+        +commit()
+        +rollback()
+    }
+    
+    class AuthenticationService {
+        +String keycloakUrl
+        +String realm
+        +PyJWKClient jwksClient
+        +validateAccessToken()
+        +getSigningKey()
+    }
+    
+    class RegistryService {
+        +String harborPath
+        +resolveContainer()
+        +getLatestImage()
+    }
+    
+    class StorageService {
+        +MinioClient client
+        +String endpoint
+        +generatePresignedUrl()
+        +checkBucketExists()
+    }
+    
+    class ModelManager {
+        +processCommit()
+        +storeElements()
+        +linkModelsToElements()
+    }
+    
+    class RequirementManager {
+        +trackRequirement()
+        +getRequirements()
+        +filterByVerification()
+    }
+    
+    class VerificationManager {
+        +createVerification()
+        +updateStatus()
+        +linkToRequirement()
+    }
+    
+    class ActionManager {
+        +createAction()
+        +resolveArtifacts()
+        +resolveContainers()
+        +validateAction()
+    }
+    
+    class ThreadExecutionManager {
+        +createExecution()
+        +updateState()
+        +generateInputs()
+        +retrieveOutputs()
+    }
+    
+    WindstormSystem "1" *-- "1" APIService
+    WindstormSystem "1" *-- "1" DatabaseService
+    WindstormSystem "1" *-- "1" AuthenticationService
+    WindstormSystem "1" *-- "1" RegistryService
+    WindstormSystem "1" *-- "1" StorageService
+    
+    APIService ..> ModelManager : uses
+    APIService ..> RequirementManager : uses
+    APIService ..> VerificationManager : uses
+    APIService ..> ActionManager : uses
+    APIService ..> ThreadExecutionManager : uses
+    
+    ModelManager ..> DatabaseService : queries
+    RequirementManager ..> DatabaseService : queries
+    VerificationManager ..> DatabaseService : queries
+    ActionManager ..> DatabaseService : queries
+    ActionManager ..> RegistryService : resolves
+    ThreadExecutionManager ..> DatabaseService : queries
+    ThreadExecutionManager ..> StorageService : manages
+                    </div>
+                </div>
+                
+                <h3>Requirements Definition</h3>
+                <div class="info-box">
+                    <h4>System Requirements</h4>
+                    <ul>
+                        <li><strong>REQ-001:</strong> System shall authenticate users via OAuth2/OIDC using Keycloak</li>
+                        <li><strong>REQ-002:</strong> System shall store and version SysML v2 model elements in PostgreSQL</li>
+                        <li><strong>REQ-003:</strong> System shall track requirements and their verification status</li>
+                        <li><strong>REQ-004:</strong> System shall resolve container images from Harbor registry</li>
+                        <li><strong>REQ-005:</strong> System shall resolve artifacts from Git repositories</li>
+                        <li><strong>REQ-006:</strong> System shall orchestrate thread executions with proper state management</li>
+                        <li><strong>REQ-007:</strong> System shall generate presigned URLs for artifact access via MinIO</li>
+                        <li><strong>REQ-008:</strong> System shall provide paginated API responses for all list operations</li>
+                        <li><strong>REQ-009:</strong> System shall support CORS for configured origins</li>
+                        <li><strong>REQ-010:</strong> System shall handle database connection failures gracefully</li>
+                    </ul>
+                </div>
+                
+                <h3>State Machine Diagram - Thread Execution</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+stateDiagram-v2
+    [*] --> windstorm: Create Thread
+    
+    windstorm --> windrunner_1: Trigger Execution
+    windrunner_1 --> windrunner_2: Input Files Ready
+    windrunner_2 --> windchest_1: Execution Complete
+    windchest_1 --> windchest_2: Output Files Ready
+    windchest_2 --> [*]: Finalize
+    
+    windstorm --> [*]: Cancel
+    windrunner_1 --> [*]: Error/Timeout
+    windrunner_2 --> [*]: Error/Timeout
+    windchest_1 --> [*]: Error/Timeout
+    
+    note right of windstorm
+        Initial state when
+        thread is created
+    end note
+    
+    note right of windrunner_1
+        No input files yet
+        awaiting preparation
+    end note
+    
+    note right of windrunner_2
+        Input files available
+        execution can begin
+    end note
+    
+    note right of windchest_1
+        Execution finished
+        processing outputs
+    end note
+    
+    note right of windchest_2
+        Complete with
+        input and output
+    end note
+                    </div>
+                </div>
+            </section>
+            
+            <!-- PHYSICAL ARCHITECTURE SECTION -->
+            <section id="physical">
+                <h2>🔧 Physical Architecture</h2>
+                
+                <h3>System Context Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+C4Context
+    title System Context - Windstorm-Dwarven in DigitalForge Ecosystem
+    
+    Person(user, "System Engineer", "Uses DigitalForge UI")
+    Person(admin, "Administrator", "Manages infrastructure")
+    
+    System(windstorm, "Windstorm-Dwarven API", "FastAPI backend for model management")
+    
+    System_Ext(keycloak, "Keycloak", "Authentication & Authorization")
+    System_Ext(postgres, "PostgreSQL", "Model & metadata storage")
+    System_Ext(harbor, "Harbor Registry", "Container image registry")
+    System_Ext(git, "Git Repositories", "Source artifacts")
+    System_Ext(minio, "MinIO", "Object storage for executions")
+    System_Ext(ui, "DigitalForge UI", "Web interface")
+    
+    Rel(user, ui, "Uses", "HTTPS")
+    Rel(ui, windstorm, "API Calls", "REST/HTTPS")
+    Rel(admin, windstorm, "Configures", "Environment variables")
+    
+    Rel(windstorm, keycloak, "Validates tokens", "OIDC/JWT")
+    Rel(windstorm, postgres, "Queries/Stores", "PostgreSQL protocol")
+    Rel(windstorm, harbor, "Resolves images", "HTTPS/Registry API")
+    Rel(windstorm, git, "Fetches metadata", "HTTPS/Git protocol")
+    Rel(windstorm, minio, "Stores/Retrieves files", "S3 API")
+                    </div>
+                </div>
+                
+                <h3>Container Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    subgraph "Client Layer"
+        WEB[Web Browser]
+        CLI[CLI Tools]
+    end
+    
+    subgraph "Application Container - Windstorm Pod"
+        subgraph "Python 3.11 Container"
+            FAST[FastAPI Application]
+            GUNIC[Gunicorn WSGI Server]
+            UV[Uvicorn Workers x4]
+            
+            GUNIC --> UV
+            UV --> FAST
+        end
+    end
+    
+    subgraph "External Services"
+        KC[Keycloak Container<br/>Port 8080]
+        PG[PostgreSQL Container<br/>Port 5432]
+        HB[Harbor Registry<br/>Port 443]
+        MO[MinIO Container<br/>Port 9000]
+    end
+    
+    subgraph "Network"
+        LB[Load Balancer]
+        INGRESS[Ingress Controller]
+    end
+    
+    WEB --> LB
+    CLI --> LB
+    LB --> INGRESS
+    INGRESS --> GUNIC
+    
+    FAST --> KC
+    FAST --> PG
+    FAST --> HB
+    FAST --> MO
+    
+    style FAST fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style GUNIC fill:#2a5298,stroke:#333,stroke-width:2px,color:#fff
+    style UV fill:#4a90e2,stroke:#333,stroke-width:1px,color:#fff
+                    </div>
+                </div>
+                
+                <h3>Component Architecture</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph LR
+    subgraph "API Layer"
+        ROUTES[Route Handlers]
+        MIDDLEWARE[CORS Middleware]
+        AUTH[OAuth2 Handler]
+    end
+    
+    subgraph "Business Logic"
+        COMMIT[Commit Processor]
+        REQMGR[Requirements Manager]
+        VERMGR[Verification Manager]
+        ACTMGR[Action Manager]
+        TEMGR[Thread Execution Manager]
+    end
+    
+    subgraph "Integration Layer"
+        HARBOR[Harbor Client]
+        GITCLI[Git Artifact Resolver]
+        MINIO[MinIO Client]
+        JWKS[JWKS Client]
+    end
+    
+    subgraph "Data Layer"
+        ORM[SQLAlchemy ORM]
+        MODELS[Database Models]
+        VIEWS[View Builders]
+    end
+    
+    subgraph "Infrastructure"
+        DB[(PostgreSQL)]
+        S3[(MinIO S3)]
+        REG[Harbor Registry]
+        IDP[Keycloak]
+    end
+    
+    ROUTES --> AUTH
+    ROUTES --> MIDDLEWARE
+    AUTH --> JWKS
+    
+    ROUTES --> COMMIT
+    ROUTES --> REQMGR
+    ROUTES --> VERMGR
+    ROUTES --> ACTMGR
+    ROUTES --> TEMGR
+    
+    ACTMGR --> HARBOR
+    ACTMGR --> GITCLI
+    TEMGR --> MINIO
+    AUTH --> JWKS
+    
+    COMMIT --> ORM
+    REQMGR --> ORM
+    VERMGR --> ORM
+    ACTMGR --> ORM
+    TEMGR --> ORM
+    
+    ORM --> MODELS
+    VIEWS --> MODELS
+    
+    ORM --> DB
+    MINIO --> S3
+    HARBOR --> REG
+    GITCLI --> REG
+    JWKS --> IDP
+    
+    style ROUTES fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style DB fill:#336791,stroke:#333,stroke-width:2px,color:#fff
+    style S3 fill:#c7131f,stroke:#333,stroke-width:2px,color:#fff
+    style IDP fill:#008aaa,stroke:#333,stroke-width:2px,color:#fff
+                    </div>
+                </div>
+                
+                <h3>Physical Deployment Model</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Technology</th>
+                            <th>Deployment</th>
+                            <th>Scalability</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>API Server</td>
+                            <td>FastAPI + Gunicorn + Uvicorn</td>
+                            <td>Docker Container (Python 3.11)</td>
+                            <td>Horizontal (4+ workers)</td>
+                        </tr>
+                        <tr>
+                            <td>Database</td>
+                            <td>PostgreSQL 15+</td>
+                            <td>Dedicated Container/Instance</td>
+                            <td>Vertical + Replication</td>
+                        </tr>
+                        <tr>
+                            <td>Object Storage</td>
+                            <td>MinIO (S3-compatible)</td>
+                            <td>Distributed Container Cluster</td>
+                            <td>Horizontal (distributed)</td>
+                        </tr>
+                        <tr>
+                            <td>Container Registry</td>
+                            <td>Harbor</td>
+                            <td>Kubernetes Deployment</td>
+                            <td>Horizontal (replicas)</td>
+                        </tr>
+                        <tr>
+                            <td>Identity Provider</td>
+                            <td>Keycloak</td>
+                            <td>Kubernetes Deployment</td>
+                            <td>Horizontal (clustered)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <!-- FUNCTIONAL ARCHITECTURE SECTION -->
+            <section id="functional">
+                <h2>⚙️ Functional Architecture</h2>
+                
+                <h3>Use Case Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    subgraph "Actors"
+        USER[System Engineer]
+        ADMIN[Administrator]
+        WEBHOOK[External Webhook]
+    end
+    
+    subgraph "Authentication Use Cases"
+        UC1[Authenticate User]
+        UC2[Validate JWT Token]
+        UC3[Refresh Access Token]
+    end
+    
+    subgraph "Model Management Use Cases"
+        UC4[Submit Model Commit]
+        UC5[Process Model Elements]
+        UC6[Query Model History]
+        UC7[View Commit Details]
+    end
+    
+    subgraph "Requirements Use Cases"
+        UC8[View Requirements]
+        UC9[Track Requirement Status]
+        UC10[Filter by Verification]
+    end
+    
+    subgraph "Verification Use Cases"
+        UC11[View Verifications]
+        UC12[Check Verification Status]
+        UC13[Link to Requirements]
+    end
+    
+    subgraph "Action Execution Use Cases"
+        UC14[View Available Actions]
+        UC15[Create Thread Execution]
+        UC16[Update Thread State]
+        UC17[Retrieve Execution Results]
+    end
+    
+    subgraph "Artifact Management Use Cases"
+        UC18[Resolve Container Image]
+        UC19[Resolve Git Artifact]
+        UC20[Generate Download URL]
+    end
+    
+    USER --> UC1
+    USER --> UC6
+    USER --> UC8
+    USER --> UC11
+    USER --> UC14
+    USER --> UC15
+    USER --> UC17
+    
+    ADMIN --> UC4
+    ADMIN --> UC16
+    
+    WEBHOOK --> UC4
+    WEBHOOK --> UC18
+    WEBHOOK --> UC19
+    
+    UC1 --> UC2
+    UC15 --> UC18
+    UC15 --> UC19
+    UC17 --> UC20
+    
+    style USER fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style ADMIN fill:#2a5298,stroke:#333,stroke-width:2px,color:#fff
+    style WEBHOOK fill:#764ba2,stroke:#333,stroke-width:2px,color:#fff
+                    </div>
+                </div>
+                
+                <h3>Sequence Diagram - Thread Execution Creation</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+sequenceDiagram
+    participant User
+    participant API as Windstorm API
+    participant Auth as Keycloak
+    participant DB as PostgreSQL
+    participant Harbor as Harbor Registry
+    participant Git as Git Repository
+    participant Storage as MinIO
+    
+    User->>API: PUT /auth/add_thread/{action_id}
+    API->>Auth: Validate JWT Token
+    Auth-->>API: Token Valid
+    
+    API->>DB: Query Action by ID
+    DB-->>API: Action Details
+    
+    API->>Harbor: Resolve Container URI
+    Harbor-->>API: Container Image Details
+    
+    API->>Git: Resolve Artifact URI
+    Git-->>API: Artifact Commit Details
+    
+    API->>DB: Create Thread Execution Record
+    DB-->>API: Thread ID
+    
+    API->>Storage: Prepare Bucket for Execution
+    Storage-->>API: Bucket Ready
+    
+    API-->>User: Thread Created (ID, Details)
+    
+    Note over API,Storage: State: windstorm → windrunner_1
+                    </div>
+                </div>
+                
+                <h3>Activity Diagram - Verification Processing</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TD
+    START([Start: Commit Received])
+    
+    PARSE[Parse Commit Data]
+    STORE_COMMIT[Store Commit Record]
+    
+    EXTRACT[Extract Model Elements]
+    STORE_ELEMENTS[Store Elements]
+    
+    IDENTIFY_REQTS[Identify Requirements]
+    STORE_REQTS[Store Requirements]
+    
+    IDENTIFY_VERFS[Identify Verifications]
+    STORE_VERFS[Store Verifications]
+    
+    LINK_VERFS[Link Verifications<br/>to Requirements]
+    
+    IDENTIFY_ACTS[Identify Actions]
+    VALIDATE_ACTS{Validate Actions?}
+    
+    RESOLVE_CONTAINERS[Resolve Container URIs]
+    RESOLVE_ARTIFACTS[Resolve Artifact URIs]
+    
+    VALID[Mark Action Valid]
+    INVALID[Mark Action Invalid]
+    
+    STORE_ACTS[Store Actions]
+    
+    MARK_PROCESSED[Mark Commit Processed]
+    
+    END([End: Commit Processed])
+    
+    START --> PARSE
+    PARSE --> STORE_COMMIT
+    STORE_COMMIT --> EXTRACT
+    EXTRACT --> STORE_ELEMENTS
+    
+    STORE_ELEMENTS --> IDENTIFY_REQTS
+    IDENTIFY_REQTS --> STORE_REQTS
+    
+    STORE_REQTS --> IDENTIFY_VERFS
+    IDENTIFY_VERFS --> STORE_VERFS
+    STORE_VERFS --> LINK_VERFS
+    
+    LINK_VERFS --> IDENTIFY_ACTS
+    IDENTIFY_ACTS --> VALIDATE_ACTS
+    
+    VALIDATE_ACTS -->|Valid| RESOLVE_CONTAINERS
+    VALIDATE_ACTS -->|Invalid| INVALID
+    
+    RESOLVE_CONTAINERS --> RESOLVE_ARTIFACTS
+    RESOLVE_ARTIFACTS --> VALID
+    
+    VALID --> STORE_ACTS
+    INVALID --> STORE_ACTS
+    
+    STORE_ACTS --> MARK_PROCESSED
+    MARK_PROCESSED --> END
+    
+    style START fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style END fill:#28a745,stroke:#333,stroke-width:2px,color:#fff
+    style VALIDATE_ACTS fill:#ffc107,stroke:#333,stroke-width:2px
+                    </div>
+                </div>
+                
+                <h3>API Endpoint Categories</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Endpoints</th>
+                            <th>Authentication</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Public Views</strong></td>
+                            <td>GET /views/*</td>
+                            <td>None</td>
+                            <td>Read-only access to commits, requirements, verifications, actions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Authenticated Operations</strong></td>
+                            <td>PUT /auth/*</td>
+                            <td>OAuth2 JWT</td>
+                            <td>Create threads, update execution states</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Webhook Handlers</strong></td>
+                            <td>POST /webhook/*</td>
+                            <td>Custom validation</td>
+                            <td>Receive external events from Harbor, Git</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Internal APIs</strong></td>
+                            <td>POST /internal/*</td>
+                            <td>Service-to-service</td>
+                            <td>Process commits, sync metadata</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            
+            <!-- DEPLOYMENT DESIGN SECTION -->
+            <section id="deployment">
+                <h2>🚀 Deployment Design</h2>
+                
+                <h3>Kubernetes Deployment Architecture</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    subgraph "Ingress Layer"
+        ING[Nginx Ingress Controller]
+        CERT[Cert Manager]
+    end
+    
+    subgraph "Application Namespace: windstorm"
+        subgraph "Windstorm Deployment"
+            POD1[Windstorm Pod 1<br/>Gunicorn + Uvicorn]
+            POD2[Windstorm Pod 2<br/>Gunicorn + Uvicorn]
+            POD3[Windstorm Pod 3<br/>Gunicorn + Uvicorn]
+        end
+        
+        SVC[Windstorm Service<br/>ClusterIP:8000]
+        CM[ConfigMap<br/>Environment Vars]
+        SEC[Secret<br/>DB Credentials]
+    end
+    
+    subgraph "Data Namespace: data"
+        PG_STS[PostgreSQL StatefulSet]
+        PG_PVC[Persistent Volume Claim<br/>100Gi]
+        PG_SVC[PostgreSQL Service<br/>ClusterIP:5432]
+    end
+    
+    subgraph "Storage Namespace: storage"
+        MINIO_DEP[MinIO Deployment]
+        MINIO_PVC[Persistent Volume Claim<br/>1Ti]
+        MINIO_SVC[MinIO Service<br/>ClusterIP:9000]
+    end
+    
+    subgraph "Registry Namespace: registry"
+        HARBOR_DEP[Harbor Deployment]
+        HARBOR_PVC[PVC - Harbor Data]
+        HARBOR_SVC[Harbor Service]
+    end
+    
+    subgraph "Auth Namespace: auth"
+        KC_DEP[Keycloak Deployment]
+        KC_DB[Keycloak DB]
+        KC_SVC[Keycloak Service]
+    end
+    
+    ING --> SVC
+    CERT --> ING
+    
+    SVC --> POD1
+    SVC --> POD2
+    SVC --> POD3
+    
+    POD1 --> CM
+    POD1 --> SEC
+    POD2 --> CM
+    POD2 --> SEC
+    POD3 --> CM
+    POD3 --> SEC
+    
+    POD1 --> PG_SVC
+    POD2 --> PG_SVC
+    POD3 --> PG_SVC
+    
+    POD1 --> MINIO_SVC
+    POD2 --> MINIO_SVC
+    POD3 --> MINIO_SVC
+    
+    POD1 --> HARBOR_SVC
+    POD2 --> HARBOR_SVC
+    POD3 --> HARBOR_SVC
+    
+    POD1 --> KC_SVC
+    POD2 --> KC_SVC
+    POD3 --> KC_SVC
+    
+    PG_SVC --> PG_STS
+    PG_STS --> PG_PVC
+    
+    MINIO_SVC --> MINIO_DEP
+    MINIO_DEP --> MINIO_PVC
+    
+    HARBOR_SVC --> HARBOR_DEP
+    HARBOR_DEP --> HARBOR_PVC
+    
+    KC_SVC --> KC_DEP
+    KC_DEP --> KC_DB
+    
+    style POD1 fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style POD2 fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style POD3 fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style PG_STS fill:#336791,stroke:#333,stroke-width:2px,color:#fff
+    style MINIO_DEP fill:#c7131f,stroke:#333,stroke-width:2px,color:#fff
+                    </div>
+                </div>
+                
+                <h3>Docker Compose Configuration</h3>
+                <pre><code class="language-yaml">version: '3.8'
+
+services:
+  windstorm:
+    build: .
+    image: windstorm-dwarven:latest
+    container_name: windstorm-api
+    ports:
+      - "8000:8000"
+    environment:
+      - SQLHOST=postgres:5432
+      - PGUSER=windstorm
+      - PGPASSWD=${DB_PASSWORD}
+      - PGDBNAME=windstorm_db
+      - HARBORPATH=harbor.digitalforge.app/
+      - KCADDR=https://keycloak.digitalforge.app
+      - KCREALM=digitalforge
+      - MINIOACCESSKEY=${MINIO_ACCESS_KEY}
+      - MINIOSECRETKEY=${MINIO_SECRET_KEY}
+    depends_on:
+      - postgres
+      - minio
+    networks:
+      - windstorm-net
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15
+    container_name: windstorm-db
+    environment:
+      - POSTGRES_USER=windstorm
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=windstorm_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - windstorm-net
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio:latest
+    container_name: windstorm-storage
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ACCESS_KEY}
+      - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY}
+    volumes:
+      - minio-data:/data
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    networks:
+      - windstorm-net
+    restart: unless-stopped
+
+volumes:
+  postgres-data:
+  minio-data:
+
+networks:
+  windstorm-net:
+    driver: bridge
+</code></pre>
+                
+                <h3>Kubernetes Manifest - Deployment</h3>
+                <pre><code class="language-yaml">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: windstorm-api
+  namespace: windstorm
+  labels:
+    app: windstorm
+    component: api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: windstorm
+      component: api
+  template:
+    metadata:
+      labels:
+        app: windstorm
+        component: api
+    spec:
+      containers:
+      - name: windstorm
+        image: ghcr.io/your-org/windstorm-dwarven:latest
+        ports:
+        - containerPort: 8000
+          name: http
+        env:
+        - name: SQLHOST
+          valueFrom:
+            configMapKeyRef:
+              name: windstorm-config
+              key: postgres-host
+        - name: PGUSER
+          valueFrom:
+            secretKeyRef:
+              name: windstorm-secrets
+              key: db-username
+        - name: PGPASSWD
+          valueFrom:
+            secretKeyRef:
+              name: windstorm-secrets
+              key: db-password
+        - name: PGDBNAME
+          value: "windstorm_db"
+        - name: HARBORPATH
+          valueFrom:
+            configMapKeyRef:
+              name: windstorm-config
+              key: harbor-path
+        - name: KCADDR
+          valueFrom:
+            configMapKeyRef:
+              name: windstorm-config
+              key: keycloak-url
+        - name: KCREALM
+          value: "digitalforge"
+        - name: MINIOACCESSKEY
+          valueFrom:
+            secretKeyRef:
+              name: windstorm-secrets
+              key: minio-access-key
+        - name: MINIOSECRETKEY
+          valueFrom:
+            secretKeyRef:
+              name: windstorm-secrets
+              key: minio-secret-key
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: windstorm-api
+  namespace: windstorm
+spec:
+  selector:
+    app: windstorm
+    component: api
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+  type: ClusterIP
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: windstorm-ingress
+  namespace: windstorm
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://digitalforge.westfall.io"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - windstorm-api.digitalforge.app
+    secretName: windstorm-tls
+  rules:
+  - host: windstorm-api.digitalforge.app
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: windstorm-api
+            port:
+              number: 8000
+</code></pre>
+                
+                <h3>Environment Configuration</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Purpose</th>
+                            <th>Example</th>
+                            <th>Required</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>SQLHOST</code></td>
+                            <td>PostgreSQL connection endpoint</td>
+                            <td>postgres:5432</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>PGUSER</code></td>
+                            <td>Database username</td>
+                            <td>windstorm</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>PGPASSWD</code></td>
+                            <td>Database password</td>
+                            <td>[secret]</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>PGDBNAME</code></td>
+                            <td>Database name</td>
+                            <td>windstorm_db</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>HARBORPATH</code></td>
+                            <td>Harbor registry base path</td>
+                            <td>harbor.example.com/</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>KCADDR</code></td>
+                            <td>Keycloak server URL</td>
+                            <td>https://keycloak.example.com</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>KCREALM</code></td>
+                            <td>Keycloak realm name</td>
+                            <td>digitalforge</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>MINIOACCESSKEY</code></td>
+                            <td>MinIO access key</td>
+                            <td>[secret]</td>
+                            <td>✅</td>
+                        </tr>
+                        <tr>
+                            <td><code>MINIOSECRETKEY</code></td>
+                            <td>MinIO secret key</td>
+                            <td>[secret]</td>
+                            <td>✅</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Network Architecture</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph TB
+    subgraph "External Zone - Internet"
+        CLIENT[Client Browsers]
+        WEBHOOK_SRC[External Webhooks<br/>Harbor, GitHub]
+    end
+    
+    subgraph "DMZ - Edge"
+        LB[Load Balancer<br/>TLS Termination]
+        WAF[Web Application Firewall]
+    end
+    
+    subgraph "Application Zone"
+        INGRESS[Ingress Controller<br/>Port 443]
+        WINDSTORM[Windstorm Pods<br/>Port 8000]
+    end
+    
+    subgraph "Service Zone"
+        KC[Keycloak<br/>Port 8080]
+        HARBOR[Harbor Registry<br/>Port 443]
+    end
+    
+    subgraph "Data Zone"
+        PG[PostgreSQL<br/>Port 5432]
+        MINIO[MinIO<br/>Port 9000]
+    end
+    
+    CLIENT --> LB
+    WEBHOOK_SRC --> LB
+    LB --> WAF
+    WAF --> INGRESS
+    INGRESS --> WINDSTORM
+    
+    WINDSTORM --> KC
+    WINDSTORM --> PG
+    WINDSTORM --> MINIO
+    WINDSTORM --> HARBOR
+    
+    style CLIENT fill:#e9ecef,stroke:#333,stroke-width:2px
+    style LB fill:#ffc107,stroke:#333,stroke-width:2px
+    style WINDSTORM fill:#667eea,stroke:#333,stroke-width:2px,color:#fff
+    style PG fill:#336791,stroke:#333,stroke-width:2px,color:#fff
+    style MINIO fill:#c7131f,stroke:#333,stroke-width:2px,color:#fff
+                    </div>
+                </div>
+                
+                <h3>Scaling Strategy</h3>
+                <div class="info-box">
+                    <h4>Horizontal Pod Autoscaler (HPA)</h4>
+                    <pre><code class="language-yaml">apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: windstorm-hpa
+  namespace: windstorm
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: windstorm-api
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+</code></pre>
+                </div>
+            </section>
+            
+            <!-- DATA MODEL SECTION -->
+            <section id="data-model">
+                <h2>💾 Data Model</h2>
+                
+                <h3>Entity Relationship Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+erDiagram
+    MODEL_REPO ||--o{ COMMITS : "tracks"
+    COMMITS ||--o{ MODELS : "contains"
+    COMMITS ||--o{ ELEMENTS : "contains"
+    COMMITS ||--o{ REQUIREMENTS : "defines"
+    COMMITS ||--o{ VERIFICATIONS : "defines"
+    COMMITS ||--o{ ACTIONS : "defines"
+    COMMITS ||--o{ MODELS_ELEMENTS : "links"
+    
+    MODELS ||--o{ MODELS_ELEMENTS : "composed_of"
+    ELEMENTS ||--o{ MODELS_ELEMENTS : "used_in"
+    
+    REQUIREMENTS ||--o{ VERIFICATIONS : "verified_by"
+    ELEMENTS ||--o{ REQUIREMENTS : "defines"
+    ELEMENTS ||--o{ VERIFICATIONS : "describes"
+    ELEMENTS ||--o{ ACTIONS : "describes"
+    
+    VERIFICATIONS ||--o{ ACTIONS : "uses"
+    
+    ARTIFACTS ||--o{ ARTIFACTS_COMMITS : "versioned_by"
+    CONTAINERS ||--o{ CONTAINER_COMMITS : "versioned_by"
+    
+    ACTIONS ||--o{ THREAD_EXECUTIONS : "executed_as"
+    COMMITS ||--o{ THREAD_EXECUTIONS : "model_version"
+    CONTAINER_COMMITS ||--o{ THREAD_EXECUTIONS : "uses_container"
+    ARTIFACTS_COMMITS ||--o{ THREAD_EXECUTIONS : "uses_artifact"
+    
+    MODEL_REPO {
+        int id PK
+        string full_name
+        string default_branch
+    }
+    
+    COMMITS {
+        int id PK
+        string ref
+        string commit
+        boolean processed
+        datetime date
+    }
+    
+    MODELS {
+        int id PK
+        int commit_id FK
+        string nb_id
+        int execution_order
+        string model_text
+        string model_hash
+        string path_text
+        string path_hash
+        string element_name
+    }
+    
+    ELEMENTS {
+        int id PK
+        int commit_id FK
+        string element_id
+        string element_text
+        string element_name
+    }
+    
+    MODELS_ELEMENTS {
+        int id PK
+        int model_id FK
+        int element_id FK
+        int commit_id FK
+    }
+    
+    REQUIREMENTS {
+        int id PK
+        int commit_id FK
+        int element_id FK
+        string declaredName
+        string shortName
+        string qualifiedName
+    }
+    
+    VERIFICATIONS {
+        int id PK
+        int commit_id FK
+        int element_id FK
+        int requirement_id FK
+        boolean verified
+        boolean attempted
+    }
+    
+    ACTIONS {
+        int id PK
+        int commit_id FK
+        int element_id FK
+        int verifications_id FK
+        string shortName
+        string declaredName
+        string qualifiedName
+        string harbor
+        string artifacts
+        string variables
+        boolean valid
+        int dependency
+    }
+    
+    ARTIFACTS {
+        int id PK
+        string full_name
+        string commit_url
+        string default_branch
+    }
+    
+    ARTIFACTS_COMMITS {
+        int id PK
+        int artifacts_id FK
+        string ref
+        string commit
+        datetime date
+    }
+    
+    CONTAINERS {
+        int id PK
+        string resource_url
+        string host
+        string project
+        int project_id
+        string image
+        int image_id
+        string tag
+    }
+    
+    CONTAINER_COMMITS {
+        int id PK
+        int containers_id FK
+        string digest
+        datetime date
+    }
+    
+    THREAD_EXECUTIONS {
+        int id PK
+        string name
+        int action_id FK
+        int model_commit_id FK
+        int container_commit_id FK
+        int artifact_commit_id FK
+        string source
+        string state
+        datetime date_created
+        datetime date_updated
+    }
+                    </div>
+                </div>
+                
+                <h3>Table Descriptions</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Table</th>
+                            <th>Purpose</th>
+                            <th>Key Relationships</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>model_repo</strong></td>
+                            <td>Configuration for the model repository</td>
+                            <td>Root entity for all commits</td>
+                        </tr>
+                        <tr>
+                            <td><strong>commits</strong></td>
+                            <td>Git commits containing model updates</td>
+                            <td>Parent to all versioned entities</td>
+                        </tr>
+                        <tr>
+                            <td><strong>models</strong></td>
+                            <td>SysML model files from Jupyter notebooks</td>
+                            <td>Linked to elements via models_elements</td>
+                        </tr>
+                        <tr>
+                            <td><strong>elements</strong></td>
+                            <td>Individual SysML elements (JSON payloads)</td>
+                            <td>Referenced by requirements, verifications, actions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>models_elements</strong></td>
+                            <td>Many-to-many relationship between models and elements</td>
+                            <td>Junction table</td>
+                        </tr>
+                        <tr>
+                            <td><strong>requirements</strong></td>
+                            <td>System requirements extracted from models</td>
+                            <td>Parent to verifications</td>
+                        </tr>
+                        <tr>
+                            <td><strong>verifications</strong></td>
+                            <td>Verification definitions linked to requirements</td>
+                            <td>Parent to actions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>actions</strong></td>
+                            <td>Executable actions that verify requirements</td>
+                            <td>References containers and artifacts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>artifacts / artifacts_commits</strong></td>
+                            <td>Git repositories and their commit history</td>
+                            <td>Used by thread executions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>containers / container_commits</strong></td>
+                            <td>Docker images from Harbor registry</td>
+                            <td>Used by thread executions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>thread_executions</strong></td>
+                            <td>Execution instances of actions with state tracking</td>
+                            <td>References action, commit, container, artifact</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>Data Flow Diagram</h3>
+                <div class="diagram-container">
+                    <div class="mermaid">
+graph LR
+    subgraph "External Sources"
+        GIT[Git Repository<br/>Model Commits]
+        HARBOR_WH[Harbor Webhook<br/>Container Updates]
+        GIT_WH[GitHub Webhook<br/>Artifact Updates]
+    end
+    
+    subgraph "Ingestion Layer"
+        COMMIT_PROC[Commit Processor]
+        CONTAINER_PROC[Container Processor]
+        ARTIFACT_PROC[Artifact Processor]
+    end
+    
+    subgraph "Database - PostgreSQL"
+        COMMITS_TBL[(commits)]
+        MODELS_TBL[(models)]
+        ELEMENTS_TBL[(elements)]
+        REQTS_TBL[(requirements)]
+        VERIFS_TBL[(verifications)]
+        ACTIONS_TBL[(actions)]
+        CONTAINERS_TBL[(containers<br/>container_commits)]
+        ARTIFACTS_TBL[(artifacts<br/>artifacts_commits)]
+        TE_TBL[(thread_executions)]
+    end
+    
+    subgraph "API Layer"
+        VIEWS[View Builders]
+        API_ROUTES[API Routes]
+    end
+    
+    subgraph "Execution Layer"
+        TE_MGR[Thread Execution Manager]
+        MINIO_CLIENT[MinIO Client]
+    end
+    
+    subgraph "Storage"
+        S3[(MinIO S3<br/>Execution Files)]
+    end
+    
+    GIT --> COMMIT_PROC
+    HARBOR_WH --> CONTAINER_PROC
+    GIT_WH --> ARTIFACT_PROC
+    
+    COMMIT_PROC --> COMMITS_TBL
+    COMMIT_PROC --> MODELS_TBL
+    COMMIT_PROC --> ELEMENTS_TBL
+    COMMIT_PROC --> REQTS_TBL
+    COMMIT_PROC --> VERIFS_TBL
+    COMMIT_PROC --> ACTIONS_TBL
+    
+    CONTAINER_PROC --> CONTAINERS_TBL
+    ARTIFACT_PROC --> ARTIFACTS_TBL
+    
+    COMMITS_TBL --> VIEWS
+    REQTS_TBL --> VIEWS
+    VERIFS_TBL --> VIEWS
+    ACTIONS_TBL --> VIEWS
+    
+    VIEWS --> API_ROUTES
+    
+    API_ROUTES --> TE_MGR
+    TE_MGR --> TE_TBL
+    TE_MGR --> MINIO_CLIENT
+    
+    MINIO_CLIENT --> S3
+    
+    ACTIONS_TBL --> TE_MGR
+    CONTAINERS_TBL --> TE_MGR
+    ARTIFACTS_TBL --> TE_MGR
+    
+    style GIT fill:#f05032,stroke:#333,stroke-width:2px,color:#fff
+    style COMMITS_TBL fill:#336791,stroke:#333,stroke-width:2px,color:#fff
+    style S3 fill:#c7131f,stroke:#333,stroke-width:2px,color:#fff
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p><strong>Windstorm-Dwarven</strong> - FastAPI Backend for DigitalForge MBSE Platform</p>
+            <p>Copyright © 2023-2024 Westfall Inc. | Licensed under GNU AGPL v3</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Generated: <span id="timestamp"></span>
+            </p>
+        </footer>
+    </div>
+    
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+        
+        // Set timestamp
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
