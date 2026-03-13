@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v0.2.1 (2026-03-13)
+
+### :bug:
+
+* :bug: Adding README.md details. ([`bb6f91e`](https://github.com/Westfall-io/windstorm-dwarven/commit/bb6f91e40eb2e132b44c0026e4c14ac295d2a4ac))
+
 ## v0.2.0 (2024-12-31)
 
 ### :sparkles:
